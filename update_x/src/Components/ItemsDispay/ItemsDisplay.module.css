@@ -1,0 +1,13 @@
+.ItemsDisplay {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.Buttons {
+  text-align: center;
+  display: flex;
+  justify-content: start;
+}

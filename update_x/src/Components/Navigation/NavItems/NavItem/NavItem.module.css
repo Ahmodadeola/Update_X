@@ -1,0 +1,35 @@
+.NavItem {
+  padding: 15px 10px;
+  border-bottom: 1px solid whitesmoke;
+  /* cursor: pointer; */
+  list-style: none;
+  font-weight: 550;
+  font-size: 0.99em;
+}
+
+.NavItem:hover {
+  background-color: rgba(255, 0, 102, 0.863);
+}
+
+.NavItem a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.NavItem a:hover {
+  color: green;
+  font-weight: bolder;
+}
+
+.NavItem:active,
+.NavItem.active {
+  border-bottom: 2px solid #f06;
+}
+
+@media (min-width: 1000px) {
+  /* .NavItem {
+    padding-top: 20px;
+  } */
+}

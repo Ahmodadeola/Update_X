@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,6 +51,20 @@ app.post("/api/additem", (req, res) => {
   item
     .save()
     .then((data) => res.json(data))
+    .catch((err) => console.log(err));
+});
+
+app.post("/api/update", (req, res) => {
+  Item.findById(req.body.id)
+    .then((item) => {
+      Object.keys(req.body.props).forEach((key) => {
+        item[key] = req.body.props[key];
+      });
+      item.save().then((item) => {
+        console.log(item);
+        res.json(item);
+      });
+    })
     .catch((err) => console.log(err));
 });
 

@@ -1,0 +1,22 @@
+.Bars {
+  position: absolute;
+  top: 30px;
+  right: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 18px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.Bars div {
+  width: 27px;
+  border: 1px solid white;
+}
+
+@media (min-width: 900px) {
+  .Bars {
+    display: none;
+  }
+}

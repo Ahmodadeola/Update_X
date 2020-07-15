@@ -1,0 +1,32 @@
+.MobileNav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  z-index: 8;
+  background-color: rgba(30, 24, 22, 0.8);
+  transition: all 0.7s ease-out;
+  transform: translate(-700px);
+}
+
+ul {
+  position: relative;
+  right: 5px;
+  top: 6px;
+  padding-inline-start: 5px;
+}
+
+.show {
+  transform: translateX(0);
+}
+
+@media (min-width: 900px) {
+  .MobileNav {
+    display: none;
+  }
+
+  .Bars {
+    display: none;
+  }
+}

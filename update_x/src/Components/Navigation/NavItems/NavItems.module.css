@@ -1,0 +1,24 @@
+.NavItems {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .NavItems {
+    position: fixed;
+    display: inline;
+    width: 25%;
+    max-width: 360px;
+    height: 100%;
+    background: linear-gradient(45deg, rgb(250, 0, 102) 55%, rgb(236, 77, 141));
+  }
+
+  .NavItemsUL {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding-inline-start: 0;
+  }
+}

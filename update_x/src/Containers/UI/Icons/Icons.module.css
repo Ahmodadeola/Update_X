@@ -1,0 +1,19 @@
+.SearchIcon {
+  display: inline;
+  cursor: pointer;
+}
+
+.SearchIcon div:first-child {
+  width: 18px;
+  height: 18px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.SearchIcon div:last-child {
+  width: 6px;
+  border: 2px solid white;
+  display: inline-block;
+  transform: rotate(25deg);
+}
