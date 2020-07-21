@@ -88,11 +88,6 @@ export default class extends Component {
         config: this.state.formEntries[id],
       });
     }
-    // let type = this.props.type,
-    //   path;
-    // if (type === "products") {
-    //   path = "/all-items";
-    // } else path = "/category";
 
     return (
       <div className={classes.Form}>

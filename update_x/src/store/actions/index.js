@@ -1,2 +1,10 @@
-export { fetchData, addItem, updateItem } from "./actions";
+export {
+  fetchData,
+  addItem,
+  updateItem,
+  activateSearch,
+  endSearch,
+  addLink,
+  removeLink,
+} from "./actions";
 export * from "./actionTypes";

@@ -1,7 +1,5 @@
 import init_state from "./init_state";
 import * as actions from "./actions/index";
-import { fetch } from "whatwg-fetch";
-import { ObjectId } from "mongodb";
 
 const filterCategory = (state, items) => {
   let categoryItems = {};
@@ -69,7 +67,7 @@ const reducer = (state = init_state, action) => {
       };
 
     case actions.UPDATE_ITEM_SUCCESS:
-      let items = state.items;
+      let items = [...state.items];
       console.log("In update_success", action.item);
       items.forEach((item, id) => {
         if (action.item._id === item._id) {
@@ -77,7 +75,6 @@ const reducer = (state = init_state, action) => {
           items[id] = action.item;
         }
       });
-      // item = items.find((item) => action.item._id === ObjectId(item._id));
       return {
         ...state,
         items: items,
@@ -96,6 +93,38 @@ const reducer = (state = init_state, action) => {
         ...state,
         vendors: state.vendors.concat(action.vendor),
       };
+
+    case actions.SET_SEARCH_MODE:
+      console.log("Search is on");
+      return {
+        ...state,
+        searchMode: true,
+      };
+
+    case actions.REMOVE_SEARCH_MODE:
+      console.log("Search is off");
+      return {
+        ...state,
+        searchMode: false,
+      };
+
+    case actions.ADD_LINK:
+      let navLinks = [...state.navLinks];
+      if (navLinks[navLinks.length - 1] !== action.link)
+        navLinks.push(action.link);
+      return {
+        ...state,
+        navLinks,
+      };
+
+    case actions.REMOVE_LINK:
+      let links = [...state.navLinks];
+      links.pop();
+      return {
+        ...state,
+        navLinks: links,
+      };
+
     default:
       return state;
   }

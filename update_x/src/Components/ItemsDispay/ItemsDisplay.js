@@ -16,6 +16,8 @@ class ItemsDisplay extends Component {
     itemStartIndex: 0,
   };
 
+  myRef = React.createRef();
+
   moreItemHandler = () => {
     let currCount = this.state.itemStartIndex + 15;
     if (currCount <= this.state.items.length) {
@@ -37,6 +39,18 @@ class ItemsDisplay extends Component {
 
   modalClosed = () => this.setState({ showModal: false });
 
+  // componentDidUpdate() {
+  //   console.log("Update is completed");
+  //   this.myRef.current.scrollTo(0, 0);
+  //   window.scrollTo(0, 0);
+  // }
+
+  componentDidMount() {
+    console.log("Landed successfully");
+    // this.myRef.current.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+  }
+
   render() {
     let remainItemsCount = this.state.items.length - this.state.itemStartIndex,
       nextItemsCount =
@@ -49,7 +63,7 @@ class ItemsDisplay extends Component {
         : this.props.cat;
 
     return (
-      <div>
+      <div ref={this.myRef}>
         <Modal
           type={this.props.type}
           modalClosed={() => this.modalClosed()}
@@ -67,6 +81,7 @@ class ItemsDisplay extends Component {
                 name={product.name}
                 brand={product.brand}
                 key={product.name}
+                quantity={product.quantity}
               />
             ) : (
               <Product

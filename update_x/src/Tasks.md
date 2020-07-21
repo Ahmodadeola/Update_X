@@ -27,3 +27,11 @@
 - implement item search functionality
 
 - add/remove/filter floating button design and functionality implementation
+
+=============================================
+
+# Current minimum target
+
+- All category and items display
+- Item add and remove funcctionality
+- item search

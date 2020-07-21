@@ -18,10 +18,10 @@ class App extends Component {
     this.props.fetchData();
   }
 
-  shouldComponentUpdate(props, nextProps) {
-    console.log(props, nextProps);
-    return this.state.props !== nextProps;
-  }
+  // shouldComponentUpdate(props, nextProps) {
+  //   console.log(props, nextProps);
+  //   return this.state.props !== nextProps;
+  // }
 
   render() {
     return (

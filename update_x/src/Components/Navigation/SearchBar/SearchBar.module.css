@@ -1,31 +1,37 @@
 .Input {
-	display: inline-block;
-	position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vw;
+  z-index: 6;
+  background-color: white;
+  padding: 7px 0;
 }
 
 .InputElement {
-	width: 200px;
-	height: 50px;
-	box-sizing: border-box;
-	padding: 7px;
-	outline: none;
-	font: 500 0.95em Verdana;
-	border: 0;
-	border: 1px solid grey;
+  width: 100%;
+  height: 45px;
+  box-sizing: border-box;
+  padding-left: 3.5em;
+  outline: none;
+  font: 500 0.95em Verdana;
+  border: 0;
+  box-shadow: 2px 2px #f06, 0 2px #f06;
 }
 
 .SearchIcon {
-	position: absolute;
-	top: 10px;
-	right: 9px;
+  position: absolute;
+  top: 14px;
+  left: 12px;
 }
 
 .hide {
-	display: none;
+  display: none;
 }
 
 @media (min-width: 1000px) {
-	.InputElement {
-		width: 300px;
-	}
+  .InputElement {
+    width: 300px;
+  }
 }

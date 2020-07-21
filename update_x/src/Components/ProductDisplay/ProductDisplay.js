@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Button from "../../Containers/UI/Button/Button";
 import Input from "../../Containers/UI/Form/Input/Input";
+import DataRow from "./DataRow/DataRow";
 import { updateItem } from "../../store/actions";
 import { connect } from "react-redux";
 import classes from "./ProductDisplay.module.css";
 
 class ProductDisplay extends Component {
+  myRef = React.createRef();
   state = {
     willEdit: false,
     dataId: null,
@@ -18,8 +20,7 @@ class ProductDisplay extends Component {
     },
   };
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+  UNSAFE_componentWillReceiveProps(nextProps) {
     let { category, costPrice, sellPrice, quantity, serialNo } = nextProps.data;
     this.setState({
       dataEntries: { category, costPrice, sellPrice, quantity, serialNo },
@@ -28,6 +29,7 @@ class ProductDisplay extends Component {
 
   editButtonHandler = (id) => {
     this.setState({ willEdit: true, dataId: id });
+    console.log(this.state.willEdit, id);
   };
 
   discardButtonHandler = () => {
@@ -59,6 +61,8 @@ class ProductDisplay extends Component {
       ...this.state.dataEntries,
     };
     inputData[inputId] = e.target.value;
+    console.log(inputData);
+
     this.setState({ dataEntries: inputData });
   };
 
@@ -86,10 +90,7 @@ class ProductDisplay extends Component {
       brand = this.props.data.brand;
 
     let dataEntries = this.state.dataEntries;
-    let options = this.props.category.map((cat) => ({
-      value: cat.name,
-      description: cat.name,
-    }));
+
     return (
       <div className={classes.ProductDisplay}>
         <table>
@@ -101,7 +102,20 @@ class ProductDisplay extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {Object.keys(dataEntries).map((entry, id) => (
+              <DataRow
+                inputType={entry == "category" ? "select" : "input"}
+                dataId={this.state.dataId}
+                willEdit={this.state.willEdit}
+                change={(e) => this.onchangeHandler(e, entry)}
+                clicked={() => this.editButtonHandler(id)}
+                id={id}
+                type={entry}
+                value={dataEntries[entry]}
+                blur={() => this.onBlurHandler()}
+              />
+            ))}
+            {/* <tr>
               <td>
                 <p>
                   <span>Category</span>:
@@ -125,6 +139,8 @@ class ProductDisplay extends Component {
                   value={"edit"}
                   style={{
                     width: "70px",
+                    height: "40px",
+                    padding: "8px",
                   }}
                 />
               </td>
@@ -153,6 +169,8 @@ class ProductDisplay extends Component {
                   value={"edit"}
                   style={{
                     width: "70px",
+                    height: "40px",
+                    padding: "8px",
                   }}
                 />
               </td>
@@ -181,6 +199,8 @@ class ProductDisplay extends Component {
                   value={"edit"}
                   style={{
                     width: "70px",
+                    height: "40px",
+                    padding: "8px",
                   }}
                 />
               </td>
@@ -192,7 +212,16 @@ class ProductDisplay extends Component {
                 </p>
               </td>
               <td>
-                <p>{quantity} units</p>
+                {this.state.willEdit && this.state.dataId == 3 ? (
+                  <input
+                    onChange={(e) => this.onchangeHandler(e, "quantity")}
+                    type="number"
+                    value={quantity}
+                    onBlur={() => this.onBlurHandler()}
+                  />
+                ) : (
+                  <p>{quantity} units</p>
+                )}
               </td>
               <td>
                 <Button
@@ -200,6 +229,8 @@ class ProductDisplay extends Component {
                   value={"edit"}
                   style={{
                     width: "70px",
+                    height: "40px",
+                    padding: "8px",
                   }}
                 />
               </td>
@@ -213,19 +244,30 @@ class ProductDisplay extends Component {
                   </p>
                 </td>
                 <td>
-                  <p>{dataEntries.serialNo}</p>
+                  {this.state.willEdit && this.state.dataId == 4 ? (
+                    <input
+                      onChange={(e) => this.onchangeHandler(e, "serialNo")}
+                      type="text"
+                      value={serialNo}
+                      onBlur={() => this.onBlurHandler()}
+                    />
+                  ) : (
+                    <p>{dataEntries.serialNo}</p>
+                  )}
                 </td>
                 <td>
                   <Button
-                    clicked={() => this.editButtonHandler()}
+                    clicked={() => this.editButtonHandler(4)}
                     value={"edit"}
                     style={{
                       width: "70px",
+                      height: "40px",
+                      padding: "8px",
                     }}
                   />
                 </td>
-              </tr>
-            )}
+              </tr> */}
+            {/* )} */}
           </tbody>
         </table>
         <div className={classes.Buttons}>

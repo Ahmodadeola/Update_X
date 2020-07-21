@@ -43,6 +43,33 @@ const updateFailed = () => {
     type: actions.UPDATE_ITEM_FAILED,
   };
 };
+
+export const addLink = (link) => {
+  return {
+    type: actions.ADD_LINK,
+    link,
+  };
+};
+
+export const removeLink = (link) => {
+  return {
+    type: actions.REMOVE_LINK,
+    link,
+  };
+};
+
+export const activateSearch = () => {
+  return {
+    type: actions.SET_SEARCH_MODE,
+  };
+};
+
+export const endSearch = () => {
+  return {
+    type: actions.REMOVE_SEARCH_MODE,
+  };
+};
+
 export const addItem = (item) => {
   return (dispatch) => {
     dispatch(addItemSync());

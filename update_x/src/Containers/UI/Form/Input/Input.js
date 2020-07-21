@@ -22,7 +22,9 @@ const Input = (props) => {
             onBlur={props.blur}
           />
           <label
-            className={config.value.length === 0 ? "" : classes.hangedLabel}
+            className={
+              config && (config.value.length === 0 ? "" : classes.hangedLabel)
+            }
             htmlFor={config.name}
           >
             {config.placeholder}

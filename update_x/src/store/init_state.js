@@ -1,9 +1,11 @@
 const init_state = {
   loading: false,
   error: false,
+  searchMode: false,
   vendors: [],
   items: null,
   categoryItems: null,
+  navLinks: ["/"],
   links: [
     { name: "Dashboard", path: "/", icon: "home" },
     { name: "Category", path: "/category", icon: "list-alt" },
@@ -11,7 +13,7 @@ const init_state = {
     { name: "Transactions History", path: "/history", icon: "history" },
     { name: "Vendors", path: "/vendors", icon: "shopping-cart" },
     { name: "Add/Remove Item(s)", path: "/add-item", icon: "shopping-cart" },
-    { name: "Add New Category", path: "/add-cat", icon: "shopping-cart" },
+    { name: "Add New Category", path: "/add-category", icon: "shopping-cart" },
     { name: "Return Item(s)", path: "/return-item", icon: "shopping-cart" },
     {
       name: "Expected Supply",

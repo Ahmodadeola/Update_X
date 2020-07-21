@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import ItemsDisplay from "../../Components/ItemsDispay/ItemsDisplay";
 import Button from "../UI/Button/Button";
 import classes from "./Category.module.css";
+import { addLink } from "../../store/actions/index";
 import { connect } from "react-redux";
 
 class Category extends Component {
   state = {};
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    this.props.addPath("/category");
+  }
 
   render() {
     console.log(this.props.category);
@@ -25,4 +30,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Category);
+const mapDispatchToprops = (dispatch) => {
+  return {
+    addPath: (path) => dispatch(addLink(path)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToprops)(Category);
