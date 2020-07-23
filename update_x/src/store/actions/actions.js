@@ -58,6 +58,35 @@ export const removeLink = (link) => {
   };
 };
 
+export const updateQuantitySync = (itemId, value) => {
+  return {
+    type: actions.UPDATE_ITEM_QUANTITY,
+    data: {
+      itemId,
+      value,
+    },
+  };
+};
+
+export const updateQuantity = (itemId, value) => {
+  let data = {
+    id: itemId,
+    props: { quantity: value },
+  };
+  console.log("[actions] the data", data);
+  return (dispatch) => {
+    dispatch(updateQuantitySync(itemId, value));
+    fetch("http://localhost:8080/api/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => dispatch(updateSuccess(data)))
+      .catch((err) => dispatch(updateFailed()));
+  };
+};
+
 export const activateSearch = () => {
   return {
     type: actions.SET_SEARCH_MODE,

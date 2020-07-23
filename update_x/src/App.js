@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Layout from "../src/Components/Layout/Layout";
 import Aux from "../src/Hoc/Auxi";
 import { Route, Switch } from "react-router-dom";
@@ -9,21 +9,24 @@ import Dashboard from "./Containers/Dashboard/Dashboard";
 import Vendor from "./Containers/AllForms/VendorForm/VendorForm";
 import CategoryForm from "./Containers/AllForms/AddCategoryForm/Category";
 import CategoryItems from "./Containers/CategoryItems/CategoryItems";
+import ItemUpdate from "./Containers/AllForms/ItemUpdate/ItemUpdate";
 import { connect } from "react-redux";
-import { fetchData } from "./store/actions/index";
+import { fetchData, updateItem } from "./store/actions/index";
 import Spinner from "./Containers/UI/Spinner/Spinner";
+import Button from "./Containers/UI/Button/Button";
 
 class App extends Component {
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     this.props.fetchData();
   }
 
-  // shouldComponentUpdate(props, nextProps) {
-  //   console.log(props, nextProps);
-  //   return this.state.props !== nextProps;
-  // }
-
   render() {
+    let emptyStore = (
+      <Fragment>
+        <h1>Your Inventory is empty, add Items</h1>
+        <Button path="/add-item" value={"Add Item"} />
+      </Fragment>
+    );
     return (
       <Aux>
         <Layout>
@@ -31,6 +34,14 @@ class App extends Component {
             <Spinner />
           ) : (
             <Switch>
+              <Route
+                path="/add-quantity"
+                render={() => <ItemUpdate type={"add"} />}
+              />
+              <Route
+                path="/pick-quantity"
+                render={() => <ItemUpdate type={"remove"} />}
+              />
               <Route path="/all-items" component={Products} />
               <Route path="/category/:cat" component={CategoryItems} />
               <Route path="/category" component={Category} />
@@ -47,6 +58,7 @@ class App extends Component {
 }
 
 const mapStateToprops = (state) => {
+  console.log(state.items);
   return {
     items: state.items,
   };
@@ -58,4 +70,4 @@ const mapDispatchToprops = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToprops)(App);
+export default connect(mapStateToprops, mapDispatchToprops)(App);

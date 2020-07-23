@@ -125,6 +125,20 @@ const reducer = (state = init_state, action) => {
         navLinks: links,
       };
 
+    case actions.UPDATE_ITEM_QUANTITY:
+      let item = state.items.find((item) => item._id === action.data.itemId);
+      console.log(item);
+      item.quantity = action.data.value;
+      let storeItems = [...state.items];
+      storeItems.forEach((item, id) => {
+        if (item._id === action.data.item) storeItems[id] = item;
+      });
+      console.log(storeItems);
+      return {
+        ...state,
+        items: storeItems,
+      };
+
     default:
       return state;
   }

@@ -8,3 +8,37 @@
   align-items: center;
   z-index: 3;
 }
+
+.Minus,
+.Plus {
+  transform: scale(1.4, 1.4);
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-weight: 570;
+  padding: 3px;
+}
+
+a span {
+  margin: 10px;
+}
+
+@media (max-width: 899px) {
+  .Minus + span,
+  .Plus + span {
+    display: none;
+  }
+
+  .Minus,
+  .Plus {
+    background-color: #f06;
+    padding: 5px;
+    position: fixed;
+    bottom: 2em;
+    /* right: 9px; */
+    border-radius: 50%;
+  }
+}

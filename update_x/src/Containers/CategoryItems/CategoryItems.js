@@ -3,6 +3,7 @@ import ItemsDisplay from "../../Components/ItemsDispay/ItemsDisplay";
 import Button from "../UI/Button/Button";
 import { connect } from "react-redux";
 import classes from "./CategoryItems.module.css";
+import { addLink } from "../../store/actions";
 
 class CategoryItems extends Component {
   state = {
@@ -10,6 +11,11 @@ class CategoryItems extends Component {
     itemStartIndex: 0,
     category: this.getItemsCat(),
   };
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    this.props.addPath(`/category/${this.state.category}`);
+  }
 
   moreItemHandler = () => {
     let currCount = this.state.itemStartIndex + 15;
@@ -29,7 +35,7 @@ class CategoryItems extends Component {
   getItems() {
     let reqParts = this.props.location.pathname.split("/");
     let category = reqParts[reqParts.length - 1];
-    return this.props.items[category];
+    return this.props.items && this.props.items[category];
   }
 
   getItemsCat() {
@@ -38,13 +44,14 @@ class CategoryItems extends Component {
   }
 
   render() {
-    let remainItemsCount = this.state.items.length - this.state.itemStartIndex,
+    let items = this.state.items;
+    let remainItemsCount = items && items.length - this.state.itemStartIndex,
       nextItemsCount =
         remainItemsCount > 15
           ? this.state.itemStartIndex + 15
           : this.state.itemStartIndex + remainItemsCount;
-    let items = this.state.items;
-    return items.length === 0 ? (
+
+    return !items || items.length === 0 ? (
       <div className={classes.EmptyCategory}>
         <h5>{this.state.category} is empty</h5>
       </div>
@@ -77,4 +84,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CategoryItems);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPath: (path) => dispatch(addLink(path)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryItems);

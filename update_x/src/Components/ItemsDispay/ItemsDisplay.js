@@ -40,18 +40,24 @@ class ItemsDisplay extends Component {
   modalClosed = () => this.setState({ showModal: false });
 
   // componentDidUpdate() {
-  //   console.log("Update is completed");
-  //   this.myRef.current.scrollTo(0, 0);
   //   window.scrollTo(0, 0);
   // }
 
   componentDidMount() {
     console.log("Landed successfully");
-    // this.myRef.current.scrollTo(0, 0);
     window.scrollTo(0, 0);
   }
 
   render() {
+    if (!this.state.items || this.state.items.length == 0)
+      return (
+        <div className={classes.EmptyStore}>
+          <p>
+            <bold>Your Inventory is empty</bold>
+          </p>
+          <Button path="/add-item" value={"Add Item"} />
+        </div>
+      );
     let remainItemsCount = this.state.items.length - this.state.itemStartIndex,
       nextItemsCount =
         remainItemsCount > 15

@@ -72,7 +72,6 @@ export default class extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    console.log("It's in submit now");
     let formData = {};
     for (var inputId in this.props.formEntries) {
       formData[inputId] = this.props.formEntries[inputId].elementConfig.value;

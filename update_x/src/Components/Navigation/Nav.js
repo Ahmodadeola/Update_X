@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { removeLink } from "../../store/actions/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 class Nav extends Component {
   state = {
@@ -38,19 +39,19 @@ class Nav extends Component {
             clicked={() => this.sideNavHandler()}
           />
           <nav className={classes.Nav}>
-            {this.props.navLinks.length >= 1 && (
+            {this.props.navLinks.length > 1 && (
               <FontAwesomeIcon
                 style={{
                   position: "absolute",
                   left: "1em",
                   top: "2em",
+                  transform: "scale(1.4, 1.4)",
                 }}
                 color={"white"}
                 icon={"arrow-left"}
                 onClick={this.prevButtonHandler}
               />
             )}
-
             <Logo />
             <FontAwesomeIcon
               style={{
@@ -60,24 +61,24 @@ class Nav extends Component {
               icon={"search"}
               onClick={this.props.showSearch}
             />
-            <FontAwesomeIcon
-              style={{
-                transform: "scale(1.4, 1.4)",
-              }}
-              color={"white"}
-              icon={"plus"}
-              onClick={this.props.showSearch}
-              title="Add item"
-            />
-            <FontAwesomeIcon
-              style={{
-                transform: "scale(1.4, 1.4)",
-              }}
-              color={"white"}
-              icon={"minus"}
-              title="Remove item"
-              onClick={this.props.showSearch}
-            />
+
+            <Link to={"/add-quantity"}>
+              <FontAwesomeIcon
+                className={classes.Plus}
+                icon={"plus"}
+                title="Add item"
+              />
+              <span>Add Quantity</span>
+            </Link>
+
+            <Link to={"/pick-quantity"}>
+              <FontAwesomeIcon
+                className={classes.Minus}
+                icon={"minus"}
+                title="pick item"
+              />
+              <span>Pick Quantity</span>
+            </Link>
 
             <DrawerToggle clicked={() => this.sideNavHandler()} />
           </nav>
