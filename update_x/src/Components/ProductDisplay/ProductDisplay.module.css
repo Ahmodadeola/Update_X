@@ -9,8 +9,8 @@
   height: 65%;
 }
 
-.ProductDisplay table tbody td {
-  /* padding: 7px; */
+.ProductDisplay input {
+  width: 80%;
 }
 
 .ProductDisplay tbody td p {
@@ -27,7 +27,7 @@
 
 .ProductDisplay td:nth-child(2) {
   text-align: left;
-  width: 35%;
+  width: 45%;
 }
 
 .ProductDisplay tbody td:last-child {

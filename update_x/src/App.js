@@ -11,6 +11,7 @@ import CategoryForm from "./Containers/AllForms/AddCategoryForm/Category";
 import CategoryItems from "./Containers/CategoryItems/CategoryItems";
 import ItemUpdate from "./Containers/AllForms/ItemUpdate/ItemUpdate";
 import { connect } from "react-redux";
+import ProductPage from "./Containers/ProductPage/ProductPage";
 import { fetchData, updateItem } from "./store/actions/index";
 import Spinner from "./Containers/UI/Spinner/Spinner";
 import Button from "./Containers/UI/Button/Button";
@@ -43,6 +44,7 @@ class App extends Component {
                 render={() => <ItemUpdate type={"remove"} />}
               />
               <Route path="/all-items" component={Products} />
+              <Route path="/items/:id" component={ProductPage} />
               <Route path="/category/:cat" component={CategoryItems} />
               <Route path="/category" component={Category} />
               <Route path="/add-item" component={NewItem} />

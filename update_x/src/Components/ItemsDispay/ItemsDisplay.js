@@ -39,9 +39,9 @@ class ItemsDisplay extends Component {
 
   modalClosed = () => this.setState({ showModal: false });
 
-  // componentDidUpdate() {
-  //   window.scrollTo(0, 0);
-  // }
+  componentDidUpdate(props) {
+    window.scrollTo(0, 0);
+  }
 
   componentDidMount() {
     console.log("Landed successfully");

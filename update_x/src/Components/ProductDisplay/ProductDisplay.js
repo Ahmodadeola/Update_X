@@ -105,6 +105,7 @@ class ProductDisplay extends Component {
                 change={(e) => this.onchangeHandler(e, entry)}
                 clicked={() => this.editButtonHandler(id)}
                 id={id}
+                key={id}
                 type={entry}
                 value={dataEntries[entry]}
                 blur={() => this.onBlurHandler()}
