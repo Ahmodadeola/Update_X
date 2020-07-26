@@ -39,9 +39,9 @@ class ItemsDisplay extends Component {
 
   modalClosed = () => this.setState({ showModal: false });
 
-  componentDidUpdate(props) {
-    window.scrollTo(0, 0);
-  }
+  // componentDidUpdate(props) {
+  //   window.scrollTo(0, 0);
+  // }
 
   componentDidMount() {
     console.log("Landed successfully");
@@ -83,7 +83,7 @@ class ItemsDisplay extends Component {
               <Product
                 type={this.props.type}
                 clicked={() => this.itemClickHandler(product)}
-                link={images}
+                link={product.img}
                 name={product.name}
                 brand={product.brand}
                 key={product.name}

@@ -25,9 +25,14 @@
   border: 1px solid grey;
   margin-top: 8em;
   width: 90%;
-  height: 70vh;
+  height: 78vh;
   margin: auto;
   box-shadow: 2px -2px 5px grey, -2px 2px 5px grey;
+}
+
+.ProductPage .ItemImage {
+  width: 100px;
+  height: 100px;
 }
 
 @media (min-height: 850px) {

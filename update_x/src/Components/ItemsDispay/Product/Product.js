@@ -19,6 +19,7 @@ const Product = (props) => {
     </Link>
   );
 
+  let imgLink = (props.link && props.link.split("\\").pop()) || "image.jpg";
   let product = (
     <div>
       <div
@@ -27,7 +28,7 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img alt={""} src={props.link} />
+          <img alt={""} src={`http://localhost:8080/images/${imgLink}`} />
           <Label
             quantity={props.quantity}
             name={props.name}

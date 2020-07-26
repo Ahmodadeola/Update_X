@@ -41,6 +41,7 @@ export default class extends Component {
   };
 
   onChangeHandler = (e, inputId) => {
+    console.log(this.state.formEntries[inputId]);
     let updatedFormInputs = {
       ...this.state.formEntries,
     };
@@ -49,7 +50,20 @@ export default class extends Component {
       ...updatedFormInputs[inputId],
     };
 
-    updatedFormElement.elementConfig.value = e.target.value;
+    if (inputId === "img") {
+      if (
+        !["image/png", "image/jpeg", "image/jpg"].includes(
+          e.target.files[0].type
+        )
+      )
+        return;
+      updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
+      updatedFormElement.elementConfig.value = e.target.value;
+      console.log(e.target.files[0], e.target.value.split("\\").pop());
+    } else {
+      updatedFormElement.elementConfig.value = e.target.value;
+    }
+
     updatedFormElement.isTouched = true;
     updatedFormInputs[inputId] = updatedFormElement;
     if (!updatedFormElement.validation) {
@@ -72,25 +86,36 @@ export default class extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    let formData = {};
+    let formData = {},
+      file;
     for (var inputId in this.props.formEntries) {
       formData[inputId] = this.props.formEntries[inputId].elementConfig.value;
     }
-    this.props.passData(formData);
+    if (this.state.formEntries.img) {
+      let path = formData.img && formData.img.split("\\").pop();
+      formData.img = path;
+      file = this.props.formEntries.img.elementConfig.file || null;
+    }
+    file.append("details", JSON.stringify(formData));
+    this.props.passData(file);
   };
 
   render() {
     let formInputs = [];
-    for (var id in this.state.formEntries) {
+    Object.keys(this.state.formEntries).forEach((input) =>
       formInputs.push({
-        id: id,
-        config: this.state.formEntries[id],
-      });
-    }
+        id: input,
+        config: this.state.formEntries[input],
+      })
+    );
 
     return (
       <div className={classes.Form}>
-        <form onSubmit={this.submitHandler}>
+        <form
+          method="POST"
+          onSubmit={this.submitHandler}
+          encType={"multipart/form-data"}
+        >
           {formInputs.map((input) => (
             <Input
               key={input.id}

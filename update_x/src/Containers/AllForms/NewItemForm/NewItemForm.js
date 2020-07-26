@@ -129,6 +129,7 @@ class NewItem extends Component {
         elementConfig: {
           type: "file",
           value: "",
+          file: new FormData(),
           placeholder: "Item Image",
           name: "image",
         },
@@ -140,7 +141,6 @@ class NewItem extends Component {
   };
 
   passData = (data) => {
-    console.log(data);
     this.props.addItem(data);
     this.props.history.replace("/all-items");
   };

@@ -60,7 +60,7 @@ class Dashboard extends Component {
                     key={item.name}
                     name={item.name}
                     brand={item.brand}
-                    link={require(`../../Assets/Images/foods.jpg`)}
+                    link={item.img}
                   />
                 ))
               )}

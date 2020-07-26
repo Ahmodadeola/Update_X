@@ -2,13 +2,9 @@
 
 - Design admin login page
 
-- Design item profile page
-
 - Design items stat page
 
-- implement remove item functionality
-
-- item img upload functionality
+- item img upload functionality setup image display for all items
 
 - all items sorting by filters implementation
 
@@ -16,22 +12,22 @@
 
 - Implement store transactions functionality
 
-- setup image display for all items
-
-- add icons to required components
+- PWA functionality setup
 
 - design stock notification interface
 
 - implement stock notification functionality
 
-- implement item search functionality
-
-- add/remove/filter floating button design and functionality implementation
-
 =============================================
 
 # Current minimum target
 
-- All category and items display
-- Item add and remove funcctionality
-- item search
+- All category and items display (**done**)
+- Item add and remove funcctionality (**done**)
+- item search (**done**)
+
+Name: Default Set
+API Key:
+9905265ed1514088a0ffa9cb17fc9f20
+API Secret:
+bebf1ac8f3049555a1b1788b2d5f4662349b5031

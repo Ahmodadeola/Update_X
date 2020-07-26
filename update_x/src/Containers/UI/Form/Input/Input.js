@@ -18,6 +18,7 @@ const Input = (props) => {
             type={config.type}
             value={config.value}
             name={config.name}
+            id={config.name}
             onChange={props.change}
             onBlur={props.blur}
           />
@@ -35,7 +36,6 @@ const Input = (props) => {
 
     case "select":
       let options = (props.config && props.config.options) || props.options;
-      console.log(options);
       inputElement = (
         <div className={classes.Select}>
           <select onChange={props.change}>

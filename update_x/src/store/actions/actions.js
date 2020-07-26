@@ -99,13 +99,13 @@ export const endSearch = () => {
   };
 };
 
-export const addItem = (item) => {
+export const addItem = (data) => {
+  console.log(data);
   return (dispatch) => {
     dispatch(addItemSync());
     fetch("http://localhost:8080/api/additem", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
+      body: data,
     })
       .then((res) => res.json())
       .then((data) => dispatch(addItemSuccess(data)))

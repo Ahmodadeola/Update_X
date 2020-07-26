@@ -9,6 +9,7 @@ const ProductPage = (props) => {
   const [showModal, setShowModal] = useState(false);
   let id = Number(props.location.pathname.split("/").splice(-1).toString());
   let item = props.items[id];
+  let imgLink = item.img.split("\\").pop() || "image.jpg";
   let data = [
     ["Name", item.name],
     ["Brand", item.brand || "None"],
@@ -25,7 +26,7 @@ const ProductPage = (props) => {
       <td>{props.entry[1]}</td>
     </tr>
   );
-  console.log(showModal);
+  console.log(imgLink);
   return (
     <div className={classes.ProductPage}>
       <Modal modalClosed={() => setShowModal(false)} show={showModal}>
@@ -36,6 +37,11 @@ const ProductPage = (props) => {
           <tr>
             <td colSpan="3" border="1">
               <h2>{(item.brand + " " + item.name).trim()}</h2>
+              <img
+                className={classes.ItemImage}
+                src={`http://localhost:8080/images/${imgLink}`}
+                alt={item.name}
+              />
             </td>
           </tr>
         </thead>

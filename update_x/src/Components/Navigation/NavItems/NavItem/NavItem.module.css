@@ -1,7 +1,7 @@
 .NavItem {
   padding: 15px 10px;
   border-bottom: 1px solid whitesmoke;
-  /* cursor: pointer; */
+  cursor: pointer;
   list-style: none;
   font-weight: 550;
   font-size: 0.99em;
