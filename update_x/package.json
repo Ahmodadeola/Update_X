@@ -22,6 +22,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8080/",
+  "homepage": "http://Ahmodadeola.github.io/update_X",
   "eslintConfig": {
     "extends": "react-app"
   },
