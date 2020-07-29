@@ -4,6 +4,7 @@ import classes from "./Dashboard.module.css";
 import Button from "../UI/Button/Button";
 import Product from "../../Components/ItemsDispay/Product/Product";
 import Spinner from "../UI/Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   render() {
@@ -18,34 +19,44 @@ class Dashboard extends Component {
         <Button path="/add-item" value={"Add Item"} />
       </div>
     );
+
+    let emptyCat = (
+      <div className={classes.EmptyStore}>
+        <p>
+          <bold>Your category list is empty</bold>
+        </p>
+        <Button path="/add-category" value={"Add Category"} />
+      </div>
+    );
     return (
       <div className={classes.Dashboard}>
         <div className={classes.Section}>
           <h1>Items category</h1>
           <div className={classes.Items}>
-            {category
+            {category && category.length > 0
               ? category.map((item) => (
                   <Product
                     type={"category"}
                     key={item.name}
                     name={item.name}
-                    brand={""}
                     link={require(`../../Assets/Images/${item.img}`)}
                   />
                 ))
-              : emptyStore}
+              : emptyCat}
           </div>
-          <Button
-            style={{
-              width: "100px",
-              height: "50px",
-              margin: "auto",
-              marginTop: "10px",
-              textAlign: "center",
-            }}
-            value={"View All"}
-            path={"/category"}
-          />
+          {category && category.length > 0 ? (
+            <Button
+              style={{
+                width: "100px",
+                height: "50px",
+                margin: "auto",
+                marginTop: "10px",
+                textAlign: "center",
+              }}
+              value={"View All"}
+              path={"/category"}
+            />
+          ) : null}
         </div>
         <div className={classes.Section}>
           <h1>All Items</h1>
@@ -54,14 +65,16 @@ class Dashboard extends Component {
               {this.props.loading ? (
                 <Spinner />
               ) : (
-                items.map((item) => (
-                  <Product
-                    type={"products"}
-                    key={item.name}
-                    name={item.name}
-                    brand={item.brand}
-                    link={item.img}
-                  />
+                items.map((item, id) => (
+                  <Link to={`/items/${id}`}>
+                    <Product
+                      type={"products"}
+                      key={item.name}
+                      name={item.name}
+                      brand={item.brand}
+                      link={item.img}
+                    />
+                  </Link>
                 ))
               )}
             </div>

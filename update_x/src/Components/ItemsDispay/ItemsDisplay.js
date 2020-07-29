@@ -34,6 +34,7 @@ class ItemsDisplay extends Component {
   };
 
   itemClickHandler = (data) => {
+    console.log(data);
     this.setState({ showModal: true, data: data });
   };
 
@@ -79,6 +80,10 @@ class ItemsDisplay extends Component {
         </Modal>
         <div className={classes.ItemsDisplay}>
           {items.map((product) => {
+            let info = "";
+            Object.entries(product.initQuantity).forEach(([key, value]) => {
+              info = info.concat(`${value} ${key}, `);
+            });
             return this.props.type === "products" ? (
               <Product
                 type={this.props.type}
@@ -87,7 +92,7 @@ class ItemsDisplay extends Component {
                 name={product.name}
                 brand={product.brand}
                 key={product.name}
-                quantity={product.quantity}
+                quantity={info}
               />
             ) : (
               <Product

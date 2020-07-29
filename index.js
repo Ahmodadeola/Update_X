@@ -6,16 +6,23 @@ const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
 const multer = require("multer");
+const { resolve } = require("path");
 
 const imagePath = path.join(__dirname, "images");
-const imageNames = [];
-fs.readdir(imagePath, (err, files) => {
-  files.forEach((file) => imageNames.push(file));
-  console.log(imageNames);
-});
 
-const getFullImageName = (name) =>
-  imageNames.find((image) => image.substr(14) === name);
+const getFullImageName = (name) => {
+  return new Promise((resolve, reject) => {
+    let imageNames = [],
+      img;
+    fs.readdir(imagePath, (err, files) => {
+      if (err) reject("dir reading failed");
+      files.forEach((file) => imageNames.push(file));
+      console.log(imageNames, "Line 16");
+      img = imageNames.find((image) => image.substr(14) === name);
+      resolve(img);
+    });
+  });
+};
 
 let Item;
 const fileStorage = multer.diskStorage({
@@ -50,6 +57,15 @@ mongoose
       sellPrice: Number,
       quantity: Number,
       category: String,
+      quantityConfig: {
+        subCarton: Number,
+        unit: Number,
+      },
+      initQuantity: {
+        carton: Number,
+        subCarton: Number,
+        unit: Number,
+      },
       date: Date,
     });
 
@@ -62,15 +78,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/images/:imgId", (req, res) => {
-  console.log(req.params.imgId);
-  if (req.params.imgId === "image.jpg")
-    res.sendFile(path.join(__dirname, "images/image.jpg"));
-  let actualPath = path.join(
-    __dirname,
-    "images/" + getFullImageName(req.params.imgId)
-  );
+  getFullImageName(req.params.imgId).then(
+    (name) => {
+      if (req.params.imgId === "image.jpg")
+        res.sendFile(path.join(__dirname, "images/image.jpg"));
+      let actualPath = path.join(__dirname, "images/" + name);
 
-  res.sendFile(actualPath);
+      res.sendFile(actualPath);
+    },
+    (err) => console.log("Something went wrong")
+  );
 });
 
 app.post("/api/additem", (req, res) => {

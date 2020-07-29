@@ -25,7 +25,31 @@ const DataRow = (props) => {
         onChange={props.change}
       />
     );
+  const fmtPrice = (price) => {
+    let p = String(price).split(""),
+      fmtPrice = "";
 
+    while (p.length > 3) {
+      fmtPrice = "," + p.splice(p.length - 3, 3).join("");
+    }
+    return (fmtPrice = p.join("") + fmtPrice);
+  };
+
+  const fmtValue = (type, value) => {
+    if (["costPrice", "sellPrice"].includes(type)) return fmtPrice(value);
+    let info = "";
+    if (type === "quantity") {
+      let quantityObj = JSON.parse(value);
+      if (typeof quantityObj !== "object") return value;
+      console.log(type, value);
+      Object.entries(quantityObj).forEach(([key, value]) => {
+        info = info.concat(`${value} ${key}, `);
+      });
+      return info;
+    }
+    return value;
+  };
+  console.log(props.type);
   return props.value !== undefined && props.value !== null ? (
     <tr>
       <td>
@@ -37,7 +61,7 @@ const DataRow = (props) => {
         {props.willEdit && props.dataId === props.id ? (
           input
         ) : (
-          <p>{props.value}</p>
+          <p>{fmtValue(props.type, props.value)}</p>
         )}
       </td>
       <td>

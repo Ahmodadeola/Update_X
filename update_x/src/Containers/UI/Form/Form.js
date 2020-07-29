@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "./Input/Input";
 import Button from "../Button/Button";
+// import sharp from "sharp";
 import classes from "./Form.module.css";
 
 export default class extends Component {
@@ -15,7 +16,6 @@ export default class extends Component {
     if (e.target.value.trim().length > 0) {
       this.setState({ labelStatic: true });
     } else this.setState({ labelStatic: false });
-    console.log(this.state.labelStatic);
   };
 
   checkValidity = (inputValue, rules) => {
@@ -40,16 +40,22 @@ export default class extends Component {
     return isValid;
   };
 
-  onChangeHandler = (e, inputId) => {
-    console.log(this.state.formEntries[inputId]);
+  onChangeHandler = (e, inputId, parent = null) => {
+    console.log(e.target.value);
     let updatedFormInputs = {
       ...this.state.formEntries,
     };
+    console.log(updatedFormInputs);
+    let updatedFormElement = parent
+      ? {
+          ...updatedFormInputs[parent].inputs[inputId],
+        }
+      : {
+          ...updatedFormInputs[inputId],
+        };
 
-    let updatedFormElement = {
-      ...updatedFormInputs[inputId],
-    };
-
+    updatedFormElement.elementConfig.value = e.target.value;
+    console.log(updatedFormElement);
     if (inputId === "img") {
       if (
         !["image/png", "image/jpeg", "image/jpg"].includes(
@@ -57,15 +63,18 @@ export default class extends Component {
         )
       )
         return;
+      // sharp(e.target.files[0]).toFile((err) => console.log(file));
       updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
-      updatedFormElement.elementConfig.value = e.target.value;
-      console.log(e.target.files[0], e.target.value.split("\\").pop());
     } else {
-      updatedFormElement.elementConfig.value = e.target.value;
+      if (!parent) updatedFormInputs[inputId] = updatedFormElement;
+      else {
+        updatedFormInputs[parent].value[inputId] = e.target.value;
+        updatedFormInputs[parent].inputs[inputId] = updatedFormElement;
+      }
     }
 
     updatedFormElement.isTouched = true;
-    updatedFormInputs[inputId] = updatedFormElement;
+
     if (!updatedFormElement.validation) {
       this.setState({ formEntries: updatedFormInputs });
       return;
@@ -75,11 +84,19 @@ export default class extends Component {
       updatedFormElement.elementConfig.value,
       updatedFormElement.validation
     );
-    updatedFormInputs[inputId] = updatedFormElement;
-
+    console.log(updatedFormElement.valid);
+    if (parent) {
+      console.log(
+        updatedFormElement.elementConfig.value,
+        updatedFormElement.validation,
+        updatedFormElement.valid
+      );
+    }
     let allInputValid = true;
     for (var id in updatedFormInputs) {
-      allInputValid = allInputValid && updatedFormInputs[id].valid;
+      if (updatedFormInputs[id].isValid) {
+        allInputValid = allInputValid && updatedFormInputs[id].isValid();
+      } else allInputValid = allInputValid && updatedFormInputs[id].valid;
     }
     this.setState({ formEntries: updatedFormInputs, allValid: allInputValid });
   };
@@ -89,15 +106,49 @@ export default class extends Component {
     let formData = {},
       file;
     for (var inputId in this.props.formEntries) {
-      formData[inputId] = this.props.formEntries[inputId].elementConfig.value;
+      if (this.props.formEntries[inputId].hasNestedInputs) {
+        formData[inputId] = this.props.formEntries[inputId].value;
+      } else
+        formData[inputId] = this.props.formEntries[inputId].elementConfig.value;
     }
+    console.log(formData);
     if (this.state.formEntries.img) {
       let path = formData.img && formData.img.split("\\").pop();
       formData.img = path;
       file = this.props.formEntries.img.elementConfig.file || null;
     }
+    file = file || new FormData();
     file.append("details", JSON.stringify(formData));
     this.props.passData(file);
+  };
+
+  NestedInputs = (props) => {
+    let formInputs = [];
+    Object.keys(props.inputs).forEach((input) =>
+      formInputs.push({
+        id: input,
+        config: props.inputs[input],
+      })
+    );
+    return (
+      <div className={classes.NestedInput}>
+        <em>{props.name}</em>
+        <div>
+          {formInputs.map((input, id) => (
+            <Input
+              key={id}
+              config={input.config.elementConfig}
+              inputType={input.config.elementType}
+              labelStatic={this.state.labelStatic}
+              change={(e) => this.onChangeHandler(e, input.id, props.parent)}
+              blur={(e) => this.labelHandler(e)}
+              isInvalid={!input.config.valid}
+              isTouched={input.config.isTouched}
+            />
+          ))}
+        </div>
+      </div>
+    );
   };
 
   render() {
@@ -109,6 +160,7 @@ export default class extends Component {
       })
     );
 
+    // let NestedInputs = this.NestedInputs;
     return (
       <div className={classes.Form}>
         <form
@@ -116,18 +168,27 @@ export default class extends Component {
           onSubmit={this.submitHandler}
           encType={"multipart/form-data"}
         >
-          {formInputs.map((input) => (
-            <Input
-              key={input.id}
-              config={input.config.elementConfig}
-              inputType={input.config.elementType}
-              labelStatic={this.state.labelStatic}
-              change={(e) => this.onChangeHandler(e, input.id)}
-              blur={(e) => this.labelHandler(e)}
-              isInvalid={!input.config.valid}
-              isTouched={input.config.isTouched}
-            />
-          ))}
+          {formInputs.map((input) =>
+            input.config.hasNestedInputs ? (
+              <this.NestedInputs
+                key={input.config.name}
+                parent={input.config.inputId}
+                name={input.config.name}
+                inputs={input.config.inputs}
+              />
+            ) : (
+              <Input
+                key={input.id}
+                config={input.config.elementConfig}
+                inputType={input.config.elementType}
+                labelStatic={this.state.labelStatic}
+                change={(e) => this.onChangeHandler(e, input.id)}
+                blur={(e) => this.labelHandler(e)}
+                isInvalid={!input.config.valid}
+                isTouched={input.config.isTouched}
+              />
+            )
+          )}
           <Button disabled={!this.state.allValid} value={"Add Item"} />
         </form>
       </div>

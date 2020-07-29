@@ -95,14 +95,12 @@ const reducer = (state = init_state, action) => {
       };
 
     case actions.SET_SEARCH_MODE:
-      console.log("Search is on");
       return {
         ...state,
         searchMode: true,
       };
 
     case actions.REMOVE_SEARCH_MODE:
-      console.log("Search is off");
       return {
         ...state,
         searchMode: false,
@@ -127,13 +125,11 @@ const reducer = (state = init_state, action) => {
 
     case actions.UPDATE_ITEM_QUANTITY:
       let item = state.items.find((item) => item._id === action.data.itemId);
-      console.log(item);
       item.quantity = action.data.value;
       let storeItems = [...state.items];
       storeItems.forEach((item, id) => {
         if (item._id === action.data.item) storeItems[id] = item;
       });
-      console.log(storeItems);
       return {
         ...state,
         items: storeItems,

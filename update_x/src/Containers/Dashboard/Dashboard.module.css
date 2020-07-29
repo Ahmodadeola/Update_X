@@ -14,6 +14,7 @@
 }
 
 .Dashboard .Section .Items {
+  position: relative;
   padding: 15px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -33,7 +34,13 @@
 }
 
 .EmptyStore {
+  position: relative;
+  width: 100%;
+  margin-left: 25vw;
+  color: grey;
   text-align: center;
+  font: bold 1.2em verdana;
+  font-style: italic;
 }
 
 @media (max-width: 999px) {

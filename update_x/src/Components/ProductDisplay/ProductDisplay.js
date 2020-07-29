@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import classes from "./ProductDisplay.module.css";
 
 class ProductDisplay extends Component {
-  myRef = React.createRef();
   state = {
     willEdit: false,
     dataId: null,
@@ -15,14 +14,19 @@ class ProductDisplay extends Component {
       category: this.props.data.category,
       costPrice: this.props.data.costPrice,
       sellPrice: this.props.data.sellPrice,
-      quantity: this.props.data.quantity,
+      quantity:
+        this.props.data.quantity ||
+        JSON.stringify(this.props.data.initQuantity),
       serialNo: this.props.data.serialNo,
     },
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     let { category, costPrice, sellPrice, quantity, serialNo } = nextProps.data;
+    if (nextProps.data.hasOwnProperty("initQuantity"))
+      quantity = JSON.stringify(nextProps.data.initQuantity);
     this.setState({
+      willEdit: false,
       dataEntries: { category, costPrice, sellPrice, quantity, serialNo },
     });
   }
@@ -44,16 +48,6 @@ class ProductDisplay extends Component {
       willEdit: false,
       dataEntries: { category, costPrice, sellPrice, quantity, serialNo },
     });
-  };
-
-  fmtPrice = (price) => {
-    let p = String(price).split(""),
-      fmtPrice = "";
-
-    while (p.length > 3) {
-      fmtPrice = "," + p.splice(p.length - 3, 3).join("");
-    }
-    return (fmtPrice = p.join("") + fmtPrice);
   };
 
   onchangeHandler = (e, inputId) => {

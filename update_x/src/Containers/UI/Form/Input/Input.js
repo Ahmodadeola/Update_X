@@ -67,7 +67,7 @@ const Input = (props) => {
       );
       break;
     default:
-      inputElement = <input {...props} />;
+      inputElement = <input />;
   }
 
   return inputElement;

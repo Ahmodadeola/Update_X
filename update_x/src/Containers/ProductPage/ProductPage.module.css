@@ -25,19 +25,19 @@
   border: 1px solid grey;
   margin-top: 8em;
   width: 90%;
-  height: 78vh;
+  height: 95vh;
   margin: auto;
   box-shadow: 2px -2px 5px grey, -2px 2px 5px grey;
 }
 
 .ProductPage .ItemImage {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 120px;
 }
 
 @media (min-height: 850px) {
   .ProductPage .Table {
-    height: 40vh;
+    height: 50vh;
   }
 }
 @media (max-width: 450px) {

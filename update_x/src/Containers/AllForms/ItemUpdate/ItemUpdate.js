@@ -20,7 +20,9 @@ class ItemUpdate extends Component {
   }
 
   passData = (data) => {
+    data = JSON.parse(data.get("details"));
     let item = this.props.items.find((item) => item.name === data.item);
+    console.log(item);
     this.props.type === "add"
       ? this.props.updateQuantity(
           item._id,
@@ -46,24 +48,76 @@ class ItemUpdate extends Component {
               description: `${item.brand || ""} ${item.name}`,
             })),
         },
-        valid: true,
-        isTouched: false,
-      },
-
-      quantity: {
-        elementType: "input",
-        elementConfig: {
-          type: "number",
-          value: "",
-          placeholder: "Add Quantity",
-          name: "quantity",
-        },
         validation: {
           required: true,
-          minValue: 1,
         },
         valid: false,
         isTouched: false,
+      },
+
+      initQuantity: {
+        hasNestedInputs: true,
+        inputId: "initQuantity",
+        name: "How much quantity do you currently have",
+        isValid: function () {
+          let inputs = Object.values(this.inputs);
+          return inputs.some((input) => input.elementConfig.value !== "");
+        },
+
+        value: {
+          carton: 0,
+          subCarton: 0,
+          unit: 0,
+        },
+        inputs: {
+          carton: {
+            elementType: "input",
+            elementConfig: {
+              type: "number",
+              value: "",
+              placeholder: "Carton",
+              name: "quantity",
+            },
+            validation: {
+              required: false,
+              minValue: 1,
+            },
+            valid: true,
+            isTouched: false,
+          },
+
+          subCarton: {
+            elementType: "input",
+            elementConfig: {
+              type: "number",
+              value: "",
+              placeholder: "subcarton",
+              name: "quantity",
+            },
+            validation: {
+              required: false,
+              minValue: 1,
+            },
+            valid: true,
+            isTouched: false,
+          },
+
+          unit: {
+            elementType: "input",
+            elementConfig: {
+              type: "number",
+              value: "",
+              placeholder: "units",
+              name: "quantity",
+            },
+            validation: {
+              required: true,
+              minValue: 1,
+            },
+            valid: true,
+            isTouched: false,
+          },
+        },
       },
     };
     let title =

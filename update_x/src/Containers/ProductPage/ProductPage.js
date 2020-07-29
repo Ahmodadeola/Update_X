@@ -10,12 +10,20 @@ const ProductPage = (props) => {
   let id = Number(props.location.pathname.split("/").splice(-1).toString());
   let item = props.items[id];
   let imgLink = item.img.split("\\").pop() || "image.jpg";
+  let info;
+  if (item.initQuantity) {
+    info = "";
+    Object.entries(item.initQuantity).forEach(([key, value]) => {
+      console.log(key, value);
+      info = info.concat(`${value} ${key}, `);
+    });
+  }
   let data = [
     ["Name", item.name],
     ["Brand", item.brand || "None"],
     ["Category", item.category || "None"],
     ["Description", item.description || "None"],
-    ["Quantity", item.quantity + " units"],
+    ["Quantity", item.quantity ? item.quantity + " units" : info],
     ["Sell Price", item.sellPrice],
     ["Cost Price", item.costPrice],
     ["Date Added", new Date(item.date).toLocaleString().substr(0, 24)],
@@ -41,6 +49,13 @@ const ProductPage = (props) => {
                 className={classes.ItemImage}
                 src={`http://localhost:8080/images/${imgLink}`}
                 alt={item.name}
+              />
+              <Button
+                style={{
+                  height: "35px",
+                  width: "110px",
+                }}
+                value={"change"}
               />
             </td>
           </tr>

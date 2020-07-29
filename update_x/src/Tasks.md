@@ -22,9 +22,9 @@
 
 # Current minimum target
 
-- All category and items display (**done**)
-- Item add and remove funcctionality (**done**)
-- item search (**done**)
+- PWA functionality
+- Build and deploy
+-
 
 Name: Default Set
 API Key:
