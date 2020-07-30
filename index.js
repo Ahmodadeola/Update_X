@@ -17,7 +17,6 @@ const getFullImageName = (name) => {
     fs.readdir(imagePath, (err, files) => {
       if (err) reject("dir reading failed");
       files.forEach((file) => imageNames.push(file));
-      console.log(imageNames, "Line 16");
       img = imageNames.find((image) => image.substr(14) === name);
       resolve(img);
     });
@@ -41,9 +40,13 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(multer({ storage: fileStorage, fileFilter }).single("image"));
+let onlineDB =
+  "mongodb+srv://ahmodadeola:salauAde123@realmcluster.viqjz.mongodb.net/itemStore?retryWrites=true&w=majority";
+let localDB = "mongodb://localhost:27017/itemStore";
+const port = process.env.PORT || 8080;
 
 mongoose
-  .connect("mongodb://localhost:27017/itemStore", {
+  .connect(onlineDB, {
     useNewUrlParser: true,
   })
   .then((connection) => {
@@ -55,7 +58,6 @@ mongoose
       serialNo: Number,
       costPrice: Number,
       sellPrice: Number,
-      quantity: Number,
       category: String,
       quantityConfig: {
         subCarton: Number,
@@ -118,4 +120,6 @@ app.get("/api/getitems", (req, res) => {
   Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
 });
 
-app.listen(8080, () => console.log("server started at http://localhost:8080"));
+app.listen(port, () =>
+  console.log(`server started at http://localhost:${port}`)
+);
