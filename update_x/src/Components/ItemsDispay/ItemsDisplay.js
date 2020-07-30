@@ -81,7 +81,8 @@ class ItemsDisplay extends Component {
         <div className={classes.ItemsDisplay}>
           {items.map((product) => {
             let info = "";
-            product.initQuantity &&
+            product.initQuantity !== null &&
+              product.initQuantity !== undefined &&
               Object.entries(product.initQuantity).forEach(([key, value]) => {
                 info = info.concat(`${value} ${key}, `);
               });
