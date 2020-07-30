@@ -81,9 +81,10 @@ class ItemsDisplay extends Component {
         <div className={classes.ItemsDisplay}>
           {items.map((product) => {
             let info = "";
-            Object.entries(product.initQuantity).forEach(([key, value]) => {
-              info = info.concat(`${value} ${key}, `);
-            });
+            product.initQuantity &&
+              Object.entries(product.initQuantity).forEach(([key, value]) => {
+                info = info.concat(`${value} ${key}, `);
+              });
             return this.props.type === "products" ? (
               <Product
                 type={this.props.type}

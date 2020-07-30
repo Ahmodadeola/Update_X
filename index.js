@@ -6,7 +6,6 @@ const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
 const multer = require("multer");
-const { resolve } = require("path");
 
 const imagePath = path.join(__dirname, "images");
 
@@ -35,19 +34,22 @@ const fileFilter = (req, file, cb) => {
   } else cb(null, false);
 };
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "update_x/build")));
+app.use("/Update_X", express.static(path.join(__dirname, "update_x", "build")));
 app.use("/images", express.static("images"));
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(multer({ storage: fileStorage, fileFilter }).single("image"));
+
 let onlineDB =
   "mongodb+srv://ahmodadeola:salauAde123@realmcluster.viqjz.mongodb.net/itemStore?retryWrites=true&w=majority";
 let localDB = "mongodb://localhost:27017/itemStore";
 const port = process.env.PORT || 8080;
 
 mongoose
-  .connect(process.env.MONGODB_URI || onlineDB, {
+  .connect(process.env.MONGODB_URI || localDB, {
     useNewUrlParser: true,
   })
   .then((connection) => {
@@ -75,10 +77,6 @@ mongoose
     Item = mongoose.model("Item", itemSchema);
   })
   .catch((err) => console.log(err));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 app.get("/images/:imgId", (req, res) => {
   getFullImageName(req.params.imgId).then(
@@ -119,6 +117,10 @@ app.post("/api/update", (req, res) => {
 
 app.get("/api/getitems", (req, res) => {
   Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "update_x/build/index.html"));
 });
 
 app.listen(port, () =>
