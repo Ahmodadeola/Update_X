@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/Update_X/static/css/main.f0f7e5ef.chunk.css",
+    "main.js": "/Update_X/static/js/main.a322c2f3.chunk.js",
+    "main.js.map": "/Update_X/static/js/main.a322c2f3.chunk.js.map",
+    "runtime-main.js": "/Update_X/static/js/runtime-main.7cecb9fb.js",
+    "runtime-main.js.map": "/Update_X/static/js/runtime-main.7cecb9fb.js.map",
+    "static/js/2.dc1efa28.chunk.js": "/Update_X/static/js/2.dc1efa28.chunk.js",
+    "static/js/2.dc1efa28.chunk.js.map": "/Update_X/static/js/2.dc1efa28.chunk.js.map",
+    "index.html": "/Update_X/index.html",
+    "precache-manifest.17c4087843e29395d7f9595b102ad72a.js": "/Update_X/precache-manifest.17c4087843e29395d7f9595b102ad72a.js",
+    "service-worker.js": "/Update_X/service-worker.js",
+    "static/css/main.f0f7e5ef.chunk.css.map": "/Update_X/static/css/main.f0f7e5ef.chunk.css.map",
+    "static/js/2.dc1efa28.chunk.js.LICENSE.txt": "/Update_X/static/js/2.dc1efa28.chunk.js.LICENSE.txt",
+    "static/media/foods.jpg": "/Update_X/static/media/foods.38979742.jpg",
+    "static/media/game_console.jpg": "/Update_X/static/media/game_console.a155e3af.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7cecb9fb.js",
+    "static/js/2.dc1efa28.chunk.js",
+    "static/css/main.f0f7e5ef.chunk.css",
+    "static/js/main.a322c2f3.chunk.js"
+  ]
+}
