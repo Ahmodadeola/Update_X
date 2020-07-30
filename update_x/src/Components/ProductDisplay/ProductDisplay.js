@@ -66,7 +66,10 @@ class ProductDisplay extends Component {
 
   onSaveButtonHandler = () => {
     let data = {
-      props: this.state.dataEntries,
+      props: {
+        ...this.state.dataEntries,
+        quantity: JSON.parse(this.state.dataEntries.quantity),
+      },
       id: this.props.data._id,
     };
     console.log(data);

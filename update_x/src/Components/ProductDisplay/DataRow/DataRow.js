@@ -10,7 +10,9 @@ const DataRow = (props) => {
   }));
 
   const input =
-    props.inputType === "select" ? (
+    props.type === "quantity" ? (
+      {}
+    ) : props.inputType === "select" ? (
       <Input
         change={props.change}
         options={options}
@@ -49,7 +51,6 @@ const DataRow = (props) => {
     }
     return value;
   };
-  console.log(props.type);
   return props.value !== undefined && props.value !== null ? (
     <tr>
       <td>

@@ -18,16 +18,28 @@ const ProductPage = (props) => {
       info = info.concat(`${value} ${key}, `);
     });
   }
+
+  const fmtPrice = (price) => {
+    let p = String(price).split(""),
+      fmtPrice = "";
+
+    while (p.length > 3) {
+      fmtPrice = "," + p.splice(p.length - 3, 3).join("");
+    }
+    return (fmtPrice = p.join("") + fmtPrice);
+  };
+
   let data = [
     ["Name", item.name],
     ["Brand", item.brand || "None"],
     ["Category", item.category || "None"],
     ["Description", item.description || "None"],
     ["Quantity", item.quantity ? item.quantity + " units" : info],
-    ["Sell Price", item.sellPrice],
-    ["Cost Price", item.costPrice],
+    ["Sell Price", fmtPrice(item.sellPrice)],
+    ["Cost Price", fmtPrice(item.costPrice)],
     ["Date Added", new Date(item.date).toLocaleString().substr(0, 24)],
   ];
+
   const DataRow = (props) => (
     <tr>
       <td>{props.entry[0]}: </td>
