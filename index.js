@@ -35,6 +35,7 @@ const fileFilter = (req, file, cb) => {
   } else cb(null, false);
 };
 
+app.use(express.static(path.join(__dirname, "build")));
 app.use("/images", express.static("images"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,7 +47,7 @@ let localDB = "mongodb://localhost:27017/itemStore";
 const port = process.env.PORT || 8080;
 
 mongoose
-  .connect(onlineDB, {
+  .connect(process.env.MONGODB_URI || onlineDB, {
     useNewUrlParser: true,
   })
   .then((connection) => {
@@ -76,7 +77,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Its all fine");
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.get("/images/:imgId", (req, res) => {
