@@ -116,7 +116,8 @@ app.post("/api/update", (req, res) => {
 });
 
 app.get("/api/getitems", (req, res) => {
-  Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
+  // Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
+  res.send(200);
 });
 
 app.get("*", (req, res) => {
