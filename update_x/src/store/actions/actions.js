@@ -76,7 +76,7 @@ export const updateQuantity = (itemId, value) => {
   console.log("[actions] the data", data);
   return (dispatch) => {
     dispatch(updateQuantitySync(itemId, value));
-    fetch("http://localhost:8080/api/update", {
+    fetch("https://update-x.herokuapp.com/api/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -103,7 +103,7 @@ export const addItem = (data) => {
   console.log(data);
   return (dispatch) => {
     dispatch(addItemSync());
-    fetch("http://localhost:8080/api/additem", {
+    fetch("https://update-x.herokuapp.com/api/additem", {
       method: "POST",
       body: data,
     })
@@ -132,7 +132,7 @@ export const getItemsFailed = () => {
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(getitems());
-    fetch("http://localhost:8080/api/getitems")
+    fetch("https://update-x.herokuapp.com/api/getitems")
       .then((res) => res.json())
       .then((data) => {
         dispatch(getItemsSuccess(data.data));
@@ -146,7 +146,7 @@ export const fetchData = () => {
 export const updateItem = (data) => {
   return (dispatch) => {
     dispatch(updateItemSync());
-    fetch("http://localhost:8080/api/update", {
+    fetch("https://update-x.herokuapp.com/api/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
