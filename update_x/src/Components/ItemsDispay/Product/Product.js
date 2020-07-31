@@ -28,7 +28,10 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img alt={""} src={`http://localhost:8080/images/${imgLink}`} />
+          <img
+            alt={""}
+            src={`https://update-x.herokuapp.com/images/${imgLink}`}
+          />
           <Label
             quantity={props.quantity}
             name={props.name}
