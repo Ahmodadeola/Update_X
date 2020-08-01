@@ -10,11 +10,9 @@ const DataRow = (props) => {
   }));
 
   const input =
-    props.type === "quantity" ? (
-      {}
-    ) : props.inputType === "select" ? (
+    props.inputType === "select" ? (
       <Input
-        change={props.change}
+        change={(e) => props.change(e, props.type)}
         options={options}
         inputType={props.inputType}
         blur={() => this.onBlurHandler()}
@@ -24,7 +22,7 @@ const DataRow = (props) => {
         onBlur={props.blur}
         type="number"
         value={props.value}
-        onChange={props.change}
+        onChange={(e) => props.change(e, props.type)}
       />
     );
   const fmtPrice = (price) => {
@@ -41,7 +39,7 @@ const DataRow = (props) => {
     if (["costPrice", "sellPrice"].includes(type)) return fmtPrice(value);
     let info = "";
     if (type === "quantity") {
-      let quantityObj = JSON.parse(value);
+      let quantityObj = value;
       if (typeof quantityObj !== "object") return value;
       console.log(type, value);
       Object.entries(quantityObj).forEach(([key, value]) => {
@@ -60,7 +58,18 @@ const DataRow = (props) => {
       </td>
       <td>
         {props.willEdit && props.dataId === props.id ? (
-          input
+          props.type === "quantity" ? (
+            Object.entries(props.value).map(([key, value]) => (
+              <input
+                type="number"
+                value={value}
+                onChange={(e) => props.change(e, key)}
+                key={key}
+              />
+            ))
+          ) : (
+            input
+          )
         ) : (
           <p>{fmtValue(props.type, props.value)}</p>
         )}

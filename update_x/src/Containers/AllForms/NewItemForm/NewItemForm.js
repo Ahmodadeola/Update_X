@@ -226,7 +226,6 @@ class NewItem extends Component {
           type: "file",
           value: "",
           file: new FormData(),
-          placeholder: "Item Image",
           name: "image",
         },
 

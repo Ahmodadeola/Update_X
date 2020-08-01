@@ -59,7 +59,7 @@ const ProductPage = (props) => {
               <h2>{(item.brand + " " + item.name).trim()}</h2>
               <img
                 className={classes.ItemImage}
-                src={`http://localhost:8080/images/${imgLink}`}
+                src={`https://update-x.herokuapp.com/images/${imgLink}`}
                 alt={item.name}
               />
               <Button

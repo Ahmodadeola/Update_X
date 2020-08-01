@@ -7,6 +7,11 @@ import { connect } from "react-redux";
 import classes from "./ProductDisplay.module.css";
 
 class ProductDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+  }
+
   state = {
     willEdit: false,
     dataId: null,
@@ -14,17 +19,14 @@ class ProductDisplay extends Component {
       category: this.props.data.category,
       costPrice: this.props.data.costPrice,
       sellPrice: this.props.data.sellPrice,
-      quantity:
-        this.props.data.quantity ||
-        JSON.stringify(this.props.data.initQuantity),
+      quantity: { ...this.props.data.initQuantity },
       serialNo: this.props.data.serialNo,
     },
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    let { category, costPrice, sellPrice, quantity, serialNo } = nextProps.data;
-    if (nextProps.data.hasOwnProperty("initQuantity"))
-      quantity = JSON.stringify(nextProps.data.initQuantity);
+    let { category, costPrice, sellPrice, serialNo } = nextProps.data;
+    let quantity = nextProps.data.initQuantity;
     this.setState({
       willEdit: false,
       dataEntries: { category, costPrice, sellPrice, quantity, serialNo },
@@ -37,28 +39,28 @@ class ProductDisplay extends Component {
   };
 
   discardButtonHandler = () => {
-    let {
-      category,
-      costPrice,
-      sellPrice,
-      quantity,
-      serialNo,
-    } = this.props.data;
+    let { category, costPrice, sellPrice, serialNo } = this.props.data;
+    let quantity = { ...this.props.data.initQuantity };
     this.setState({
       willEdit: false,
       dataEntries: { category, costPrice, sellPrice, quantity, serialNo },
     });
   };
 
-  onchangeHandler = (e, inputId) => {
+  onChangeHandler = (e, inputId, parent) => {
     let inputData = {
       ...this.state.dataEntries,
     };
-    inputData[inputId] = e.target.value;
-    console.log(inputData);
-
+    if (parent) {
+      inputData[parent][inputId] = e.target.value;
+    } else inputData[inputId] = e.target.value;
     this.setState({ dataEntries: inputData });
   };
+
+  HOChangeHandler = (parent) => (e, inputId) =>
+    parent === "quantity"
+      ? this.onChangeHandler(e, inputId, parent)
+      : this.onChangeHandler(e, inputId);
 
   onBlurHandler = () => {
     this.setState({ willEdit: false });
@@ -99,8 +101,8 @@ class ProductDisplay extends Component {
                 inputType={entry == "category" ? "select" : "input"}
                 dataId={this.state.dataId}
                 willEdit={this.state.willEdit}
-                change={(e) => this.onchangeHandler(e, entry)}
-                clicked={() => this.editButtonHandler(id)}
+                change={this.HOChangeHandler(entry)}
+                clicked={this.editButtonHandler.bind(this, id)}
                 id={id}
                 key={id}
                 type={entry}
