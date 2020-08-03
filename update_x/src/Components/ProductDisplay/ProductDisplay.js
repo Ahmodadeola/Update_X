@@ -70,7 +70,7 @@ class ProductDisplay extends Component {
     let data = {
       props: {
         ...this.state.dataEntries,
-        quantity: JSON.parse(this.state.dataEntries.quantity),
+        initQuantity: this.state.dataEntries.quantity,
       },
       id: this.props.data._id,
     };

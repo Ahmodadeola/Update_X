@@ -135,6 +135,32 @@ const reducer = (state = init_state, action) => {
         items: storeItems,
       };
 
+    case actions.UPDATE_IMAGE:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case actions.UPDATE_IMAGE_SUCCESS:
+      let imageItem = state.items.find((item) => item._id === action.data._id);
+      imageItem = action.data;
+      let imageItems = [...state.items];
+      imageItems.forEach((item, id) => {
+        if (imageItem._id === action.data) imageItems[id] = imageItem;
+      });
+      return {
+        ...state,
+        loading: false,
+        items: imageItems,
+      };
+
+    case actions.UPDATE_IMAGE_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
     default:
       return state;
   }

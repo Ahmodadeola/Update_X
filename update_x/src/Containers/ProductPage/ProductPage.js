@@ -2,11 +2,11 @@ import React, { Fragment, useState } from "react";
 import classes from "./ProductPage.module.css";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
+import { updateImage } from "../../store/actions";
 import ProductDisplay from "../../Components/ProductDisplay/ProductDisplay";
 import { connect } from "react-redux";
 
 const ProductPage = (props) => {
-  const [showModal, setShowModal] = useState(false);
   let id = Number(props.location.pathname.split("/").splice(-1).toString());
   let item = props.items[id];
   let imgLink = item.img.split("\\").pop() || "image.jpg";
@@ -18,6 +18,10 @@ const ProductPage = (props) => {
       info = info.concat(`${value} ${key}, `);
     });
   }
+
+  const [showModal, setShowModal] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const [imageData, setImageData] = useState(new FormData());
 
   const fmtPrice = (price) => {
     let p = String(price).split(""),
@@ -46,6 +50,21 @@ const ProductPage = (props) => {
       <td>{props.entry[1]}</td>
     </tr>
   );
+
+  const onChangeHandler = (e) => {
+    let image = new FormData();
+    image.append("value", e.target.files[0].name);
+    image.append("image", e.target.files[0]);
+    image.append("id", item._id);
+    setImageData(image);
+  };
+
+  const changeImage = (e) => {
+    e.preventDefault();
+    console.log(imageData);
+    props.updateImage(imageData);
+  };
+
   console.log(imgLink);
   return (
     <div className={classes.ProductPage}>
@@ -62,13 +81,30 @@ const ProductPage = (props) => {
                 src={`https://update-x.herokuapp.com/images/${imgLink}`}
                 alt={item.name}
               />
-              <Button
-                style={{
-                  height: "35px",
-                  width: "110px",
-                }}
-                value={"change"}
-              />
+              {!showInput ? (
+                <Button
+                  style={{
+                    height: "35px",
+                    width: "110px",
+                  }}
+                  value={"change"}
+                  clicked={() => setShowInput(true)}
+                />
+              ) : (
+                <div className={classes.Input}>
+                  <form onSubmit={changeImage}>
+                    <input type="file" onChange={onChangeHandler} />
+                    <Button
+                      disabled={!imageData.get("image")}
+                      value={"apply"}
+                      style={{
+                        width: "60px",
+                        height: "40px",
+                      }}
+                    />
+                  </form>
+                </div>
+              )}
             </td>
           </tr>
         </thead>
@@ -79,9 +115,9 @@ const ProductPage = (props) => {
         </tbody>
       </table>
       <Button
-        style={{
+        divStyle={{
           position: "relative",
-          top: "3em",
+          top: "3.5em",
         }}
         value={"Edit Item"}
         clicked={() => setShowModal(true)}
@@ -96,4 +132,10 @@ const mapStateToprops = (state) => {
   };
 };
 
-export default connect(mapStateToprops)(ProductPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateImage: (data) => dispatch(updateImage(data)),
+  };
+};
+
+export default connect(mapStateToprops, mapDispatchToProps)(ProductPage);

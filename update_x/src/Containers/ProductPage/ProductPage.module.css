@@ -35,6 +35,11 @@
   height: 120px;
 }
 
+.Product .Input {
+  border: 1px solid grey;
+  margin: 10px auto;
+}
+
 @media (min-height: 850px) {
   .ProductPage .Table {
     height: 50vh;

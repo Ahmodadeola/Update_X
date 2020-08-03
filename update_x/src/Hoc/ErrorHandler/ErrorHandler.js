@@ -1,12 +1,24 @@
-import React from React;
-import {connect} from "react-redux"
+import React from "react";
+import { connect } from "react-redux";
+import { Fragment } from "react";
 
-const ErrorHandler = props => {
+const ErrorHandler = (wrappedComponent) => {
+  return connect(mapStateToProps)((props) => (
+    <Fragment>
+      {!props.err ? (
+        <wrappedComponent {...props} />
+      ) : (
+        <div>Sorry, An error Occured</div>
+      )}
+    </Fragment>
+  ));
+};
 
-}
+const mapStateToProps = (state) => {
+  return {
+    items: state.items,
+    error: state.error,
+  };
+};
 
-const mapStateToProps = state => {
-    return {
-        items: state.items
-    }
-}
+export default ErrorHandler;

@@ -4,6 +4,7 @@ import Navbar from "../Navigation/Nav";
 import NavItems from "../Navigation/NavItems/NavItems";
 import classes from "./Layout.module.css";
 import Spinner from "../../Containers/UI/Spinner/Spinner";
+import ErrorHandler from "../../Hoc/ErrorHandler/ErrorHandler";
 import SearchBar from "../../Components/Navigation/SearchBar/SearchBar";
 import { connect } from "react-redux";
 
@@ -25,7 +26,11 @@ class Layout extends Component {
             </header>
             <main className={classes.Main}>
               <NavItems />
-              {!this.props.loading ? (
+              {this.props.err ? (
+                <div className={classes.Error}>
+                  Sorry, An Error Occured, try reloading the page
+                </div>
+              ) : !this.props.loading ? (
                 <section className={classes.ProductSection}>
                   {this.props.children}
                 </section>

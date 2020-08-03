@@ -102,6 +102,7 @@ app.post("/api/additem", (req, res) => {
 });
 
 app.post("/api/update", (req, res) => {
+  console.log(req.body.id);
   Item.findById(req.body.id)
     .then((item) => {
       Object.keys(req.body.props).forEach((key) => {
@@ -117,6 +118,17 @@ app.post("/api/update", (req, res) => {
 
 app.get("/api/getitems", (req, res) => {
   Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
+});
+
+app.post("/api/updateimage", (req, res) => {
+  let id = req.body.id;
+  console.log(id);
+  Item.findById(id)
+    .then((item) => {
+      item.img = req.body.value;
+      item.save().then((item) => res.json(item));
+    })
+    .catch((err) => console.log(err));
 });
 
 app.get("*", (req, res) => {

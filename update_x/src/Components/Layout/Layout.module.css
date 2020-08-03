@@ -10,6 +10,13 @@
   width: 100%;
 }
 
+.Main .Error {
+  text-align: center;
+  font-size: 1.2em;
+  position: relative;
+  top: 20vh;
+}
+
 @media (min-width: 900px) {
   .ProductSection {
     margin-top: 21px;

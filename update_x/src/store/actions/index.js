@@ -6,5 +6,6 @@ export {
   endSearch,
   addLink,
   removeLink,
+  updateImage,
 } from "./actions";
 export * from "./actionTypes";

@@ -132,7 +132,7 @@ export const getItemsFailed = () => {
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(getitems());
-    fetch("https://update-x.herokuapp.com/api/getitems")
+    fetch("/api/getitems")
       .then((res) => res.json())
       .then((data) => {
         dispatch(getItemsSuccess(data.data));
@@ -154,5 +154,40 @@ export const updateItem = (data) => {
       .then((res) => res.json())
       .then((data) => dispatch(updateSuccess(data)))
       .catch((err) => dispatch(updateFailed()));
+  };
+};
+
+const updateImageInit = () => {
+  return {
+    type: actions.UPDATE_IMAGE,
+  };
+};
+
+const updateImageFailed = () => {
+  return {
+    type: actions.UPDATE_IMAGE_FAILED,
+  };
+};
+
+const updateImageSuccess = (data) => {
+  return {
+    type: actions.UPDATE_IMAGE_SUCCESS,
+    data,
+  };
+};
+
+export const updateImage = (data) => {
+  return (dispatch) => {
+    dispatch(updateImageInit());
+    fetch("http://update-x.herokuapp.com/api/updateimage", {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(updateImageSuccess(data));
+      })
+      .catch((err) => updateImageFailed());
   };
 };

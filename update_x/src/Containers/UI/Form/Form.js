@@ -65,6 +65,7 @@ export default class extends Component {
         return;
       // sharp(e.target.files[0]).toFile((err) => console.log(file));
       updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
+      updatedFormElement.elementConfig.value = e.target.files[0].name;
     } else {
       if (!parent) updatedFormInputs[inputId] = updatedFormElement;
       else {
@@ -113,7 +114,7 @@ export default class extends Component {
     }
     console.log(formData);
     if (this.state.formEntries.img) {
-      let path = formData.img && formData.img.split("\\").pop();
+      let path = formData.img;
       formData.img = path;
       file = this.props.formEntries.img.elementConfig.file || null;
     }
@@ -160,7 +161,6 @@ export default class extends Component {
       })
     );
 
-    // let NestedInputs = this.NestedInputs;
     return (
       <div className={classes.Form}>
         <form
