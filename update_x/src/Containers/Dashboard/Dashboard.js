@@ -66,10 +66,9 @@ class Dashboard extends Component {
                 <Spinner />
               ) : (
                 items.map((item, id) => (
-                  <Link to={`/items/${id}`}>
+                  <Link to={`/items/${id}`} key={item.name}>
                     <Product
                       type={"products"}
-                      key={item.name}
                       name={item.name}
                       brand={item.brand}
                       link={item.img}

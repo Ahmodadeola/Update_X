@@ -65,7 +65,7 @@ export default class extends Component {
         return;
       // sharp(e.target.files[0]).toFile((err) => console.log(file));
       updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
-      updatedFormElement.elementConfig.value = e.target.files[0].name;
+      updatedFormElement.elementConfig.value = e.target.value;
     } else {
       if (!parent) updatedFormInputs[inputId] = updatedFormElement;
       else {

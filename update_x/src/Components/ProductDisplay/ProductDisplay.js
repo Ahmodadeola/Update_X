@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "../../Containers/UI/Button/Button";
-import Input from "../../Containers/UI/Form/Input/Input";
 import DataRow from "./DataRow/DataRow";
 import { updateItem } from "../../store/actions";
 import { connect } from "react-redux";

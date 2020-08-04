@@ -6,6 +6,13 @@ const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "adeola1735",
+  api_key: "816961839298775",
+  api_secret: "dhFPLutSqYbAPHbIL_K8TahluZ0",
+});
 
 const imagePath = path.join(__dirname, "images");
 
@@ -24,7 +31,10 @@ const getFullImageName = (name) => {
 
 let Item;
 const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "images"),
+  destination: (req, file, cb) => {
+    console.log("file info => ", file);
+    cb(null, "images");
+  },
   filename: (req, file, cb) => cb(null, Date.now() + "_" + file.originalname),
 });
 
@@ -93,15 +103,34 @@ app.get("/images/:imgId", (req, res) => {
 
 app.post("/api/additem", (req, res) => {
   let data = JSON.parse(req.body.details);
-  let item = new Item({ ...data, date: new Date() });
-  console.log(item);
-  item
-    .save()
-    .then((data) => res.json(data))
-    .catch((err) => console.log(err));
+  if (req.file) {
+    cloudinary.uploader
+      .upload(req.file.path)
+      .then((result) => {
+        let item = new Item({
+          ...data,
+          img: result.secure_url,
+          date: new Date(),
+        });
+        item
+          .save()
+          .then((data) => res.json(data))
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => res.json(err));
+  } else {
+    let item = new Item({ ...data, date: new Date() });
+    console.log(item);
+    item
+      .save()
+      .then((data) => res.json(data))
+      .catch((err) => console.log(err));
+  }
 });
 
 app.post("/api/update", (req, res) => {
+  if (req.file) console.log(req.file);
+
   console.log(req.body.id);
   Item.findById(req.body.id)
     .then((item) => {
@@ -122,13 +151,19 @@ app.get("/api/getitems", (req, res) => {
 
 app.post("/api/updateimage", (req, res) => {
   let id = req.body.id;
-  console.log(id);
-  Item.findById(id)
-    .then((item) => {
-      item.img = req.body.value;
-      item.save().then((item) => res.json(item));
+  console.log(req.file, "In here");
+  cloudinary.uploader
+    .upload(req.file.path)
+    .then((result) => {
+      console.log(result);
+      Item.findById(id)
+        .then((item) => {
+          item.img = result.secure_url;
+          item.save().then((item) => res.json(item));
+        })
+        .catch((err) => console.log(err));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.json(err));
 });
 
 app.get("*", (req, res) => {

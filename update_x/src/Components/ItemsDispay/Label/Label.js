@@ -3,7 +3,7 @@ import classes from "./Label.module.css";
 
 export default (props) => {
   let details = props.brand ? props.brand + " " + props.name : props.name;
-  let quantity = props.quantity && props.quantity + " units";
+  let quantity = props.quantity && props.quantity;
   return (
     <div className={classes.Label}>
       <span>

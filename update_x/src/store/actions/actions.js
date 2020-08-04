@@ -179,7 +179,7 @@ const updateImageSuccess = (data) => {
 export const updateImage = (data) => {
   return (dispatch) => {
     dispatch(updateImageInit());
-    fetch("http://update-x.herokuapp.com/api/updateimage", {
+    fetch("https://update-x.herokuapp.com/api/updateimage", {
       method: "POST",
       body: data,
     })

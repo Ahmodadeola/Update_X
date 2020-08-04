@@ -19,7 +19,7 @@ const Product = (props) => {
     </Link>
   );
 
-  let imgLink = (props.link && props.link.split("\\").pop()) || "image.jpg";
+  let imgLink = props.link || "https://update-x.herokuapp.com/images/image.jpg";
   let product = (
     <div>
       <div
@@ -28,10 +28,7 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img
-            alt={""}
-            src={`https://update-x.herokuapp.com/images/${imgLink}`}
-          />
+          <img alt={""} src={imgLink} />
           <Label
             quantity={props.quantity}
             name={props.name}

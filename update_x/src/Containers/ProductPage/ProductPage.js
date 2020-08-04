@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 const ProductPage = (props) => {
   let id = Number(props.location.pathname.split("/").splice(-1).toString());
   let item = props.items[id];
-  let imgLink = item.img.split("\\").pop() || "image.jpg";
+  let imgLink = item.img || "image.jpg";
   let info;
   if (item.initQuantity) {
     info = "";
@@ -78,7 +78,7 @@ const ProductPage = (props) => {
               <h2>{(item.brand + " " + item.name).trim()}</h2>
               <img
                 className={classes.ItemImage}
-                src={`https://update-x.herokuapp.com/images/${imgLink}`}
+                src={imgLink}
                 alt={item.name}
               />
               {!showInput ? (

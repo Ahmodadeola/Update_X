@@ -4,7 +4,7 @@ import classes from "./ItemUpdate.module.css";
 import { connect } from "react-redux";
 import Form from "../../UI/Form/Form";
 import { addLink } from "../../../store/actions";
-import { updateQuantity } from "../../../store/actions/actions";
+import { updateItem } from "../../../store/actions/actions";
 
 class ItemUpdate extends Component {
   state = {
@@ -22,14 +22,23 @@ class ItemUpdate extends Component {
   passData = (data) => {
     data = JSON.parse(data.get("details"));
     let item = this.props.items.find((item) => item.name === data.item);
-    console.log(item);
+    console.log(data, item);
+    let newQuantity = {};
     this.props.type === "add"
-      ? this.props.updateQuantity(
-          item._id,
-          Number(item.quantity) + Number(data.quantity)
-        )
-      : this.props.updateQuantity(item._id, item.quantity - data.quantity);
-    this.props.history.replace("/");
+      ? Object.entries(data.initQuantity).forEach(([key, value]) => {
+          newQuantity[key] = Number(value) + item.initQuantity[key];
+        })
+      : Object.entries(data.initQuantity).forEach(([key, value]) => {
+          newQuantity[key] = item.initQuantity[key] - Number(value);
+        });
+
+    this.props.saveItem({
+      id: item._id,
+      props: {
+        initQuantity: newQuantity,
+      },
+    });
+    // this.props.history.replace("/");
   };
 
   render() {
@@ -144,7 +153,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addPath: (path) => dispatch(addLink(path)),
-    updateQuantity: (item, value) => dispatch(updateQuantity(item, value)),
+    saveItem: (data) => dispatch(updateItem(data)),
   };
 };
 
