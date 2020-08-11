@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-
+const home = "http://localhost:8080";
 const addItemSync = (item) => {
   return {
     type: actions.ADD_ITEM,
@@ -76,7 +76,7 @@ export const updateQuantity = (itemId, value) => {
   console.log("[actions] the data", data);
   return (dispatch) => {
     dispatch(updateQuantitySync(itemId, value));
-    fetch("https://update-x.herokuapp.com/api/update", {
+    fetch(`${home}/api/update`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -103,7 +103,7 @@ export const addItem = (data) => {
   console.log(data);
   return (dispatch) => {
     dispatch(addItemSync());
-    fetch("https://update-x.herokuapp.com/api/additem", {
+    fetch(`${home}/api/additem`, {
       method: "POST",
       body: data,
     })
@@ -146,7 +146,7 @@ export const fetchData = () => {
 export const updateItem = (data) => {
   return (dispatch) => {
     dispatch(updateItemSync());
-    fetch("https://update-x.herokuapp.com/api/update", {
+    fetch("/api/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -179,7 +179,7 @@ const updateImageSuccess = (data) => {
 export const updateImage = (data) => {
   return (dispatch) => {
     dispatch(updateImageInit());
-    fetch("https://update-x.herokuapp.com/api/updateimage", {
+    fetch("/updateimage", {
       method: "POST",
       body: data,
     })

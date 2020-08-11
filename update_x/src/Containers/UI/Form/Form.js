@@ -65,7 +65,6 @@ export default class extends Component {
         return;
       // sharp(e.target.files[0]).toFile((err) => console.log(file));
       updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
-      updatedFormElement.elementConfig.value = e.target.value;
     } else {
       if (!parent) updatedFormInputs[inputId] = updatedFormElement;
       else {
@@ -114,7 +113,7 @@ export default class extends Component {
     }
     console.log(formData);
     if (this.state.formEntries.img) {
-      let path = formData.img;
+      let path = formData.img && formData.img.split("\\").pop();
       formData.img = path;
       file = this.props.formEntries.img.elementConfig.file || null;
     }
