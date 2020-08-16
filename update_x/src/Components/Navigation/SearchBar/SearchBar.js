@@ -123,13 +123,13 @@ class SearchBar extends Component {
 
 const mapStateToProps = (state) => {
   let suggestions = [];
-  state.items.forEach((item, id) =>
+  state.items.items.forEach((item, id) =>
     suggestions.push({ desc: (item.brand + " " + item.name).toLowerCase(), id })
   );
   return {
-    items: state.items,
-    category: state.category,
-    vendors: state.vendors,
+    items: state.items.items,
+    category: state.categories.category,
+    // vendors: state.vendors,
     suggestions: suggestions,
   };
 };

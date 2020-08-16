@@ -91,7 +91,7 @@ const DataRow = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    options: state.category,
+    options: state.categories.category,
   };
 };
 

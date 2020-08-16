@@ -16,8 +16,8 @@ const ErrorHandler = (wrappedComponent) => {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
-    error: state.error,
+    items: state.items.items,
+    error: state.globalState.error,
   };
 };
 

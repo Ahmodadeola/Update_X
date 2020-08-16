@@ -95,8 +95,8 @@ class Nav extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    links: state.links,
-    navLinks: state.navLinks,
+    links: state.globalState.links,
+    navLinks: state.globalState.navLinks,
   };
 };
 

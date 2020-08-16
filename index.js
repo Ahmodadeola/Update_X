@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const itemsRoutes = require("./Routes/items");
 const imagesRoutes = require("./Routes/images");
+const categoryRoutes = require("./Routes/category");
 
 const port = process.env.PORT || 8080;
 
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 app.use(multer({ storage: fileStorage, fileFilter }).single("image"));
 
 app.use("/api", itemsRoutes);
+app.use("/api", categoryRoutes);
 app.use(imagesRoutes);
 
 app.get("*", (req, res) => {

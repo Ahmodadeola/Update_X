@@ -39,7 +39,7 @@ class Dashboard extends Component {
                     type={"category"}
                     key={item.name}
                     name={item.name}
-                    link={require(`../../Assets/Images/${item.img}`)}
+                    link={"/images/image.jpg"}
                   />
                 ))
               : emptyCat}
@@ -133,9 +133,9 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
-    category: state.category,
-    loading: state.loading,
+    items: state.items.items,
+    category: state.categories.category,
+    loading: state.globalState.loading,
   };
 };
 export default connect(mapStateToProps)(Dashboard);

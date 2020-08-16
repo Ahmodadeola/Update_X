@@ -60,9 +60,8 @@ class App extends Component {
 }
 
 const mapStateToprops = (state) => {
-  console.log(state.items);
   return {
-    items: state.items,
+    items: state.items.items,
   };
 };
 

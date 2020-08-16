@@ -1,15 +1,6 @@
 import init_state from "./init_state";
 import * as actions from "./actions/index";
 
-const filterCategory = (state, items) => {
-  let categoryItems = {};
-  state.category.forEach((cat) => {
-    let catItems = items.filter((item) => item.category === cat.name);
-    categoryItems[cat.name] = catItems;
-  });
-  return categoryItems;
-};
-
 const reducer = (state = init_state, action) => {
   switch (action.type) {
     case actions.GET_ITEMS:
@@ -28,7 +19,7 @@ const reducer = (state = init_state, action) => {
         categoryItems: categoryItems,
       };
 
-    case actions.GET_ITEMS_FAILURE:
+    case actions.GET_ITEMS_FAILED:
       return {
         ...state,
         loading: false,
@@ -94,6 +85,26 @@ const reducer = (state = init_state, action) => {
         vendors: state.vendors.concat(action.vendor),
       };
 
+    case actions.GET_CATEGORIES:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+
+    case actions.GET_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        category: action.categories,
+        loading: false,
+        error: false,
+      };
+
+    case actions.GET_CATEGORIES_FAILED:
+      return {
+        ...state,
+        error: true,
+      };
     case actions.SET_SEARCH_MODE:
       return {
         ...state,

@@ -47,9 +47,9 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.loading,
-    err: state.error,
-    showSearch: state.searchMode,
+    loading: state.globalState.loading,
+    err: state.globalState.error,
+    showSearch: state.globalState.searchMode,
   };
 };
 

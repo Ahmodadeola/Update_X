@@ -121,8 +121,8 @@ class ItemsDisplay extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.items,
-    cat: state.category,
+    products: state.items.items,
+    cat: state.categories.category,
   };
 };
 

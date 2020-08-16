@@ -1,5 +1,7 @@
 import React from "react";
 import Form from "../../UI/Form/Form";
+import { addCategory } from "../../../store/actions";
+import { connect } from "react-redux";
 
 const formEntries = {
   name: {
@@ -15,6 +17,18 @@ const formEntries = {
       minLength: 2,
     },
     valid: false,
+    isTouched: false,
+  },
+
+  description: {
+    elementType: "textarea",
+    elementConfig: {
+      type: "text",
+      value: "",
+      placeholder: "Description",
+      name: "description",
+    },
+    valid: true,
     isTouched: false,
   },
 
@@ -35,17 +49,22 @@ const formEntries = {
   },
 };
 
-const passData = (data) => {
-  //   this.props.addItem(data);
-  this.props.history.replace("/category");
-};
-
 const Category = (props) => {
+  const passData = (data) => {
+    props.addCategory(data);
+    props.history.replace("/category");
+  };
   return (
     <div>
-      <Form formEntries={formEntries} />
+      <Form formEntries={formEntries} passData={passData} />
     </div>
   );
 };
 
-export default Category;
+const mapDispatchToprops = (dispatch) => {
+  return {
+    addCategory: (data) => dispatch(addCategory(data)),
+  };
+};
+
+export default connect(null, mapDispatchToprops)(Category);

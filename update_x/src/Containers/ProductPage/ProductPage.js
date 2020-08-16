@@ -128,7 +128,7 @@ const ProductPage = (props) => {
 
 const mapStateToprops = (state) => {
   return {
-    items: state.items,
+    items: state.items.items,
   };
 };
 

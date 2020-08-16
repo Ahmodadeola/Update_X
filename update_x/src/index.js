@@ -6,7 +6,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import reducer from "./store/reducer";
+import itemsReducer from "./store/Reducers/itemsReducer";
+import categoriesReducer from "./store/Reducers/categoryReducer";
+import globalStateReducer from "./store/Reducers/globalStateReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 import thunk from "redux-thunk";
 
@@ -23,7 +25,11 @@ const composeEnhancers =
   compose;
 
 const store = createStore(
-  reducer,
+  combineReducers({
+    items: itemsReducer,
+    categories: categoriesReducer,
+    globalState: globalStateReducer,
+  }),
   composeEnhancers(applyMiddleware(loggerMiddleware, thunk))
 );
 const app = (

@@ -1,9 +1,11 @@
 const init_state = {
-  loading: false,
-  error: false,
-  searchMode: false,
+  globalState: {},
+  itemState: {
+    items: null,
+  },
+  categoryState: {},
   vendors: [],
-  items: null,
+
   categoryItems: null,
   navLinks: ["/"],
   links: [

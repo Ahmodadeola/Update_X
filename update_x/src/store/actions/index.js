@@ -1,6 +1,7 @@
 export {
   fetchData,
   addItem,
+  addCategory,
   updateItem,
   activateSearch,
   endSearch,

@@ -31,7 +31,9 @@ exports.addItemController = (req, res) => {
 };
 
 exports.getItemsController = (req, res) => {
-  Item.find().then((data) => res.json({ dataCount: data.length, data: data }));
+  Item.find()
+    .then((data) => res.json({ dataCount: data.length, data: data }))
+    .catch((err) => res.send(err));
 };
 
 exports.updateItemController = (req, res) => {
