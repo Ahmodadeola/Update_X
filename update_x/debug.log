@@ -309,3 +309,4 @@
 [0404/092228.037:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
 [0718/193501.861:ERROR:http_transport_win.cc(276)] WinHttpSendRequest: The operation completed successfully. (0x0)
 [0726/032213.962:ERROR:file_io.cc(134)] WriteFile: The pipe is being closed. (0xE8)
+[0818/113753.184:ERROR:crashpad.cc(153)] Failed to get activation factory for IPlatformDiagnosticsAndUsageDataSettingsStatics

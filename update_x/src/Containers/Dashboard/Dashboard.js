@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./Dashboard.module.css";
 import Button from "../UI/Button/Button";
@@ -11,6 +11,7 @@ class Dashboard extends Component {
     console.log(this.props.history);
     let category = this.props.category && this.props.category.slice(0, 6);
     let items = this.props.items && this.props.items.slice(0, 6);
+
     let emptyStore = (
       <div className={classes.EmptyStore}>
         <p>
@@ -25,25 +26,36 @@ class Dashboard extends Component {
         <p>
           <bold>Your category list is empty</bold>
         </p>
-        <Button path="/add-category" value={"Add Category"} />
+        <Button
+          style={{
+            height: "47px",
+            fontSize: ".66em",
+          }}
+          path="/add-category"
+          value={"Add Category"}
+        />
       </div>
     );
+
     return (
       <div className={classes.Dashboard}>
         <div className={classes.Section}>
           <h1>Items category</h1>
-          <div className={classes.Items}>
-            {category && category.length > 0
-              ? category.map((item) => (
-                  <Product
-                    type={"category"}
-                    key={item.name}
-                    name={item.name}
-                    link={"/images/image.jpg"}
-                  />
-                ))
-              : emptyCat}
-          </div>
+          {category && category.length > 0 ? (
+            <div className={classes.Items}>
+              {category.map((cat) => (
+                <Product
+                  type={"category"}
+                  name={cat.name}
+                  key={cat.name}
+                  link={"/images/image.jpg"}
+                />
+              ))}
+            </div>
+          ) : (
+            emptyCat
+          )}
+
           {category && category.length > 0 ? (
             <Button
               style={{
@@ -81,7 +93,7 @@ class Dashboard extends Component {
             emptyStore
           )}
 
-          {items && (
+          {items && items.length > 0 && (
             <Button
               style={{ width: "100px", height: "50px", marginTop: "10px" }}
               value={"View All"}
@@ -92,9 +104,9 @@ class Dashboard extends Component {
         <div className={classes.Section}>
           <div className={classes.Trans}>
             <table cellSpacing="2" cellPadding="10px" border="2" width="90%">
-              <thead colSpan="4">
+              <thead>
                 <tr>
-                  <td>
+                  <td colSpan="4">
                     <h1>Recent Transactions</h1>
                   </td>
                 </tr>

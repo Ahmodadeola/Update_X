@@ -53,6 +53,7 @@ class ProductDisplay extends Component {
     if (parent) {
       inputData[parent][inputId] = e.target.value;
     } else inputData[inputId] = e.target.value;
+    console.log(inputData)
     this.setState({ dataEntries: inputData });
   };
 

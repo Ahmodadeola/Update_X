@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-const home = "http://localhost:8080";
+const home = "https://update-x.herokuapp.com";
 
 const addItemSync = (item) => {
   return {
@@ -40,6 +40,7 @@ export const addItem = (data) => {
 const addCategorySync = (cat) => {
   return {
     type: actions.ADD_CATEGORY,
+    category: cat,
   };
 };
 
@@ -59,7 +60,7 @@ const addCategoryFailed = () => {
 export const addCategory = (data) => {
   return (dispatch) => {
     dispatch(addCategorySync());
-    fetch(`${home}/api/addCategory`, {
+    fetch(`${home}/api/addcategory`, {
       method: "POST",
       body: data,
     })
@@ -110,7 +111,7 @@ const getItemsFailed = () => {
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(getItems());
-    fetch("/api/getitems")
+    fetch(`${home}/api/getitems`)
       .then((res) => res.json())
       .then((data) => {
         dispatch(getItemsSuccess(data.data));
@@ -120,9 +121,8 @@ export const fetchData = () => {
         console.log(err);
         dispatch(getItemsFailed());
       });
-
     dispatch(getCategories());
-    fetch("/api/getcategories")
+    fetch(`${home}/api/getcategories`)
       .then((res) => res.json())
       .then((data) => {
         dispatch(getCategoriesSuccess(data.data));
@@ -155,7 +155,7 @@ const updateFailed = () => {
 export const updateItem = (data) => {
   return (dispatch) => {
     dispatch(updateItemSync());
-    fetch("/api/update", {
+    fetch(`${home}/api/update`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -188,7 +188,7 @@ const updateImageSuccess = (data) => {
 export const updateImage = (data) => {
   return (dispatch) => {
     dispatch(updateImageInit());
-    fetch("/updateimage", {
+    fetch(`${home}/updateimage`, {
       method: "POST",
       body: data,
     })

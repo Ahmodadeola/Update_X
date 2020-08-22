@@ -5,7 +5,7 @@ const addCategoryController = require("../controllers/category")
 const getCategoriesController = require("../controllers/category")
   .getCategoriesController;
 
-Router.post("/addcategories", addCategoryController);
-Router.get("/getCategories", getCategoriesController);
+Router.post("/addcategory", addCategoryController);
+Router.get("/getcategories", getCategoriesController);
 
 module.exports = Router;

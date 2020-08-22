@@ -7,9 +7,7 @@
 .Dashboard .Section {
   padding: 10px;
   width: 46%;
-  /* height: 500px; */
   margin: 20px auto;
-  /* background-color: rgba(133, 128, 128, 0.3);*/
   background-color: white;
 }
 
@@ -17,7 +15,7 @@
   position: relative;
   padding: 15px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   grid-gap: 10px;
 }
 
@@ -35,7 +33,6 @@
 
 .EmptyStore {
   position: relative;
-  width: 100%;
   color: grey;
   text-align: center;
   font: bold 1.2em verdana;

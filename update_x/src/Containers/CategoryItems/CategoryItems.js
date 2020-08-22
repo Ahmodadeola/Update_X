@@ -7,7 +7,6 @@ import { addLink } from "../../store/actions";
 
 class CategoryItems extends Component {
   state = {
-    items: this.getItems(),
     itemStartIndex: 0,
     category: this.getItemsCat(),
   };
@@ -19,7 +18,7 @@ class CategoryItems extends Component {
 
   moreItemHandler = () => {
     let currCount = this.state.itemStartIndex + 15;
-    if (currCount <= this.state.items.length) {
+    if (currCount <= this.getItems().length) {
       this.setState({ itemStartIndex: currCount });
     }
   };
@@ -44,7 +43,7 @@ class CategoryItems extends Component {
   }
 
   render() {
-    let items = this.state.items;
+    let items = this.getItems();
     let remainItemsCount = items && items.length - this.state.itemStartIndex,
       nextItemsCount =
         remainItemsCount > 15
@@ -62,13 +61,13 @@ class CategoryItems extends Component {
         <div className={classes.Buttons}>
           {remainItemsCount > 15 ? (
             <Button
-              onClick={() => this.moreItemHandler()}
+              clicked={() => this.moreItemHandler()}
               value={"Next Items"}
             />
           ) : null}
           {this.state.itemStartIndex > 0 ? (
             <Button
-              onClick={() => this.prevItemsHandler()}
+              clicked={() => this.prevItemsHandler()}
               value={"Prev Items"}
             />
           ) : null}
@@ -80,7 +79,7 @@ class CategoryItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.categoryItems,
+    items: state.items.categoryItems,
   };
 };
 

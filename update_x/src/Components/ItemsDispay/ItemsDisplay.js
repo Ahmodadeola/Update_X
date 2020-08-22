@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Modal from "../../Containers/UI/Modal/Modal";
 import Product from "./Product/Product";
-import images from "../../Assets/Images/game_console.jpg";
 import Button from "../../Containers/UI/Button/Button";
 import ProductDisplay from "../ProductDisplay/ProductDisplay";
 import { connect } from "react-redux";
@@ -16,9 +15,13 @@ class ItemsDisplay extends Component {
     itemStartIndex: 0,
   };
 
+  getItems = () => {
+    return this.props.items || this.props.products;
+  };
+
   moreItemHandler = () => {
     let currCount = this.state.itemStartIndex + 15;
-    if (currCount <= this.state.items.length) {
+    if (currCount <= this.getItems().length) {
       this.setState({ itemStartIndex: currCount });
     }
   };
@@ -43,7 +46,9 @@ class ItemsDisplay extends Component {
   }
 
   render() {
-    if (!this.state.items || this.state.items.length == 0)
+    let allItems = this.getItems();
+
+    if (!allItems || allItems.length == 0)
       return (
         <div className={classes.EmptyStore}>
           <p>
@@ -52,14 +57,14 @@ class ItemsDisplay extends Component {
           <Button path="/add-item" value={"Add Item"} />
         </div>
       );
-    let remainItemsCount = this.state.items.length - this.state.itemStartIndex,
+    let remainItemsCount = allItems.length - this.state.itemStartIndex,
       nextItemsCount =
         remainItemsCount > 15
           ? this.state.itemStartIndex + 15
           : this.state.itemStartIndex + remainItemsCount;
     let items =
       this.props.type === "products"
-        ? this.state.items.slice(this.state.itemStartIndex, nextItemsCount)
+        ? allItems.slice(this.state.itemStartIndex, nextItemsCount)
         : this.props.cat;
 
     return (
@@ -93,8 +98,7 @@ class ItemsDisplay extends Component {
               <Product
                 type={this.props.type}
                 key={product.name}
-                // link={require(`../../Assets/Images/${product.img}`)}
-                link={require(`../../Assets/Images/foods.jpg`)}
+                link={product.img}
                 name={product.name}
               />
             );
@@ -103,13 +107,13 @@ class ItemsDisplay extends Component {
         <div className={classes.Buttons}>
           {remainItemsCount > 15 ? (
             <Button
-              onClick={() => this.moreItemHandler()}
+              clicked={() => this.moreItemHandler()}
               value={"Next Items"}
             />
           ) : null}
           {this.state.itemStartIndex > 0 ? (
             <Button
-              onClick={() => this.prevItemsHandler()}
+              clicked={() => this.prevItemsHandler()}
               value={"Prev Items"}
             />
           ) : null}

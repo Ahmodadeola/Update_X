@@ -1,4 +1,5 @@
 import * as actions from "../actions";
+import CategoryItems from "../../Containers/CategoryItems/CategoryItems";
 
 const init_state = {
   items: [],
@@ -8,16 +9,18 @@ const init_state = {
   error: false,
 };
 
-const filterCategory = (state, items) => {
+const filterCategory = (category, items) => {
   let categoryItems = {};
-  state.category.forEach((cat) => {
+  category.forEach((cat) => {
     let catItems = items.filter((item) => item.category === cat.name);
     categoryItems[cat.name] = catItems;
   });
+  console.log(categoryItems);
   return categoryItems;
 };
 
 const itemsReducer = (state = init_state, action) => {
+  let categoryItems;
   switch (action.type) {
     case actions.GET_ITEMS:
       return {
@@ -27,14 +30,11 @@ const itemsReducer = (state = init_state, action) => {
       };
 
     case actions.GET_ITEMS_SUCCESS:
-      console.log("Items retrieve is a success");
-      let categoryItems = filterCategory(state, action.items);
       return {
         ...state,
         error: false,
         loading: false,
         items: action.items,
-        categoryItems: categoryItems,
       };
 
     case actions.GET_ITEMS_FAILED:
@@ -53,11 +53,11 @@ const itemsReducer = (state = init_state, action) => {
 
     case actions.ADD_ITEM_SUCCESS:
       let newItems = state.items.concat(action.item);
-      let newCategoryItems = filterCategory(state, newItems);
+      let newCategoryItems = filterCategory(state.category, newItems);
       return {
         ...state,
         loading: false,
-        items: state.items.concat(action.item),
+        items: [action.item, ...state.items],
         categoryItems: newCategoryItems,
       };
 
@@ -76,9 +76,11 @@ const itemsReducer = (state = init_state, action) => {
       };
 
     case actions.GET_CATEGORIES_SUCCESS:
+      categoryItems = filterCategory(action.categories, state.items);
       return {
         ...state,
         category: action.categories,
+        categoryItems,
       };
 
     case actions.UPDATE_ITEM_SUCCESS:

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Input from "./Input/Input";
 import Button from "../Button/Button";
-// import sharp from "sharp";
 import classes from "./Form.module.css";
 
 export default class extends Component {
@@ -150,6 +149,10 @@ export default class extends Component {
       </div>
     );
   };
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
   render() {
     let formInputs = [];

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import classes from "./Product.module.css";
 
 const Product = (props) => {
+  const home = "https://update-x.herokuapp.com";
   let category = (
     <Link style={{ textDecoration: "none" }} to={`/category/${props.name}`}>
       <div
@@ -12,14 +13,17 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img alt={""} src={props.link} />
+          <img
+            alt={props.name}
+            src={props.link || `${home}/images/image.jpg`}
+          />
           <Label name={props.name} brand={props.brand} price={props.price} />
         </div>
       </div>
     </Link>
   );
 
-  let imgLink = props.link || "https://update-x.herokuapp.com/images/image.jpg";
+  let imgLink = props.link || "/images/image.jpg";
   let product = (
     <div>
       <div
@@ -28,7 +32,7 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img alt={""} src={imgLink} />
+          <img alt={props.name} src={imgLink} />
           <Label
             quantity={props.quantity}
             name={props.name}

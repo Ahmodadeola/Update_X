@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Form from "../../UI/Form/Form";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
-// import classes from "./NewItemForm.module.css";
 
 class NewItem extends Component {
   state = {
@@ -239,10 +238,6 @@ class NewItem extends Component {
     this.props.addItem(data);
     this.props.history.replace("/all-items");
   };
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
 
   render() {
     return (
