@@ -21,11 +21,9 @@ const getFullImageName = (name) => {
 
 exports.imageUpdateController = (req, res) => {
   let id = req.body.id;
-  console.log(req.file, "In here");
   uploader
     .upload(req.file.path)
     .then((result) => {
-      console.log(result);
       Item.findById(id)
         .then((item) => {
           item.img = result.secure_url;

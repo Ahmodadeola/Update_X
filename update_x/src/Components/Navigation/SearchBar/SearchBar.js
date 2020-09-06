@@ -18,7 +18,6 @@ class SearchBar extends Component {
 
   onChangeHandler = (e) => {
     let sug = this.getFilteredSuggestion(e.target.value);
-    console.log(this.props.suggestions, sug);
     this.setState({ filteredSuggestions: sug, userInput: e.target.value });
   };
 
@@ -65,7 +64,6 @@ class SearchBar extends Component {
   }
 
   onClickHandler = (e, id) => {
-    console.log(this.props.items[id]);
     this.setState({
       userInput: e.target.innerText,
       activeSuggestion: id,

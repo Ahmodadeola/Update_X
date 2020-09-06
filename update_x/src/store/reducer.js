@@ -59,10 +59,8 @@ const reducer = (state = init_state, action) => {
 
     case actions.UPDATE_ITEM_SUCCESS:
       let items = [...state.items];
-      console.log("In update_success", action.item);
       items.forEach((item, id) => {
         if (action.item._id === item._id) {
-          console.log(item, id);
           items[id] = action.item;
         }
       });

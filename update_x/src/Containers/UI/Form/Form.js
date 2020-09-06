@@ -40,11 +40,9 @@ export default class extends Component {
   };
 
   onChangeHandler = (e, inputId, parent = null) => {
-    console.log(e.target.value);
     let updatedFormInputs = {
       ...this.state.formEntries,
     };
-    console.log(updatedFormInputs);
     let updatedFormElement = parent
       ? {
           ...updatedFormInputs[parent].inputs[inputId],
@@ -54,7 +52,6 @@ export default class extends Component {
         };
 
     updatedFormElement.elementConfig.value = e.target.value;
-    console.log(updatedFormElement);
     if (inputId === "img") {
       if (
         !["image/png", "image/jpeg", "image/jpg"].includes(
@@ -83,14 +80,7 @@ export default class extends Component {
       updatedFormElement.elementConfig.value,
       updatedFormElement.validation
     );
-    console.log(updatedFormElement.valid);
-    if (parent) {
-      console.log(
-        updatedFormElement.elementConfig.value,
-        updatedFormElement.validation,
-        updatedFormElement.valid
-      );
-    }
+
     let allInputValid = true;
     for (var id in updatedFormInputs) {
       if (updatedFormInputs[id].isValid) {
@@ -110,7 +100,6 @@ export default class extends Component {
       } else
         formData[inputId] = this.props.formEntries[inputId].elementConfig.value;
     }
-    console.log(formData);
     if (this.state.formEntries.img) {
       let path = formData.img && formData.img.split("\\").pop();
       formData.img = path;

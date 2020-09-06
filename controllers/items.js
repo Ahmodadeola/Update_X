@@ -61,7 +61,6 @@ exports.addItemController = (req, res) => {
       .catch((err) => res.json(err));
   } else {
     let item = new Item({ ...data, date: new Date() });
-    console.log(item);
     item
       .save()
       .then((data) => res.json(data))
@@ -96,7 +95,6 @@ exports.updateItemController = (req, res) => {
         item[key] = req.body.props[key];
       });
       item.save().then((item) => {
-        console.log(item);
         res.json(item);
       });
     })

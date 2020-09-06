@@ -28,7 +28,6 @@ class ItemsDisplay extends Component {
 
   prevItemsHandler = () => {
     let currCount = this.state.itemStartIndex - 16;
-    console.log("Handling the prev button", currCount);
     if (currCount <= 0) {
       this.setState({ itemStartIndex: currCount });
     }
@@ -41,7 +40,6 @@ class ItemsDisplay extends Component {
   modalClosed = () => this.setState({ showModal: false });
 
   componentDidMount() {
-    console.log("Landed successfully");
     window.scrollTo(0, 0);
   }
 

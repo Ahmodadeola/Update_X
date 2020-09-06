@@ -13,7 +13,6 @@ class Category extends Component {
   }
 
   render() {
-    console.log(this.props.category);
     return (
       <div className={classes.Category}>
         <h1>Category</h1>

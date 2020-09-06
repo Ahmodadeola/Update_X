@@ -25,7 +25,6 @@ class CategoryItems extends Component {
 
   prevItemsHandler = () => {
     let currCount = this.state.itemStartIndex - 15;
-    console.log("Handling the prev button", currCount);
     if (currCount <= 0) {
       this.setState({ itemStartIndex: currCount });
     }

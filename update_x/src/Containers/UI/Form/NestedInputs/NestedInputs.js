@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./NestedInputs.module.css";
 import Input from "../Input/Input";
 const NestedInputs = (props) => {
-  // let [input, setInput] = React.useState("");
   let formInputs = [];
   Object.keys(props.inputs).forEach((input) =>
     formInputs.push({
@@ -10,7 +9,6 @@ const NestedInputs = (props) => {
       config: props.inputs[input],
     })
   );
-  // console.log("Now I have to reload");
   return (
     <div className={classes.NestedInput}>
       <em>{props.name}</em>

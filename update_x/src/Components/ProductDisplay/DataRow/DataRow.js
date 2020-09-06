@@ -41,7 +41,6 @@ const DataRow = (props) => {
     if (type === "quantity") {
       let quantityObj = value;
       if (typeof quantityObj !== "object") return value;
-      console.log(type, value);
       Object.entries(quantityObj).forEach(([key, value]) => {
         info = info.concat(`${value} ${key}, `);
       });

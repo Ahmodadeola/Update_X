@@ -34,7 +34,6 @@ class ProductDisplay extends Component {
 
   editButtonHandler = (id) => {
     this.setState({ willEdit: true, dataId: id });
-    console.log(this.state.willEdit, id);
   };
 
   discardButtonHandler = () => {
@@ -53,7 +52,6 @@ class ProductDisplay extends Component {
     if (parent) {
       inputData[parent][inputId] = e.target.value;
     } else inputData[inputId] = e.target.value;
-    console.log(inputData)
     this.setState({ dataEntries: inputData });
   };
 
@@ -74,7 +72,6 @@ class ProductDisplay extends Component {
       },
       id: this.props.data._id,
     };
-    console.log(data);
     this.props.saveItem(data);
   };
 

@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ProductPage.module.css";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
-import { updateImage } from "../../store/actions";
+import { updateImage, addLink } from "../../store/actions";
 import ProductDisplay from "../../Components/ProductDisplay/ProductDisplay";
 import { connect } from "react-redux";
 
@@ -11,10 +11,14 @@ const ProductPage = (props) => {
   let item = props.items[id];
   let imgLink = item.img || "https://update-x.herokuapp.com/images/image.jpg";
   let info;
+
+  useEffect(() => {
+    props.addPath(`/items/${id}`);
+  });
+
   if (item.initQuantity) {
     info = "";
     Object.entries(item.initQuantity).forEach(([key, value]) => {
-      console.log(key, value);
       info = info.concat(`${value} ${key}, `);
     });
   }
@@ -61,11 +65,9 @@ const ProductPage = (props) => {
 
   const changeImage = (e) => {
     e.preventDefault();
-    console.log(imageData);
     props.updateImage(imageData);
   };
 
-  console.log(imgLink);
   return (
     <div className={classes.ProductPage}>
       <Modal modalClosed={() => setShowModal(false)} show={showModal}>
@@ -134,6 +136,7 @@ const mapStateToprops = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addPath: (path) => dispatch(addLink(path)),
     updateImage: (data) => dispatch(updateImage(data)),
   };
 };

@@ -10,11 +10,7 @@ const NavItems = (props) => {
     <div className={classes.NavItems}>
       <ul className={classes.NavItemsUL}>
         {links.map((link, id) => (
-          <NavItem
-            link={link}
-            key={id}
-            clicked={(e) => console.log(e.target)}
-          />
+          <NavItem link={link} key={id} />
         ))}
       </ul>
     </div>

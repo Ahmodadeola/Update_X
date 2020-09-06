@@ -22,7 +22,6 @@ class ItemUpdate extends Component {
   passData = (data) => {
     data = JSON.parse(data.get("details"));
     let item = this.props.items.find((item) => item.name === data.item);
-    console.log(data, item);
     let newQuantity = {};
     this.props.type === "add"
       ? Object.entries(data.initQuantity).forEach(([key, value]) => {

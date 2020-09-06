@@ -1,7 +1,5 @@
 import * as actions from "./actionTypes";
-const home = process.env.PORT
-  ? "https://update-x.herokuapp.com"
-  : "http://localhost:8080";
+const home = "https://update-x.herokuapp.com";
 
 const addItemSync = (item) => {
   return {
@@ -23,7 +21,6 @@ const addItemFailed = () => {
 };
 
 export const addItem = (data) => {
-  console.log(data);
   return (dispatch) => {
     dispatch(addItemSync());
     fetch(`${home}/api/additem`, {
