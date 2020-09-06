@@ -3,23 +3,23 @@
   margin-top: 3em;
 }
 
-.ProductPage table thead {
+.ProductPage > table thead {
   color: #f06;
 }
 
-.ProductPage table tbody tr td:first-child {
+.ProductPage > table tbody tr td:first-child {
   color: #f06;
   font-weight: 600;
   text-align: right;
 }
 
-.ProductPage table tbody tr td:last-child {
+.ProductPage > table tbody tr td:last-child {
   text-align: left;
   padding-left: 3em;
   font-style: oblique;
 }
 
-.ProductPage .Table {
+.ProductPage > .Table {
   position: relative;
   top: 4em;
   border: 1px solid grey;

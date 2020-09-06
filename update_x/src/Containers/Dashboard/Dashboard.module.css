@@ -29,6 +29,11 @@
   margin: auto;
   margin-top: 20px;
   border: 1px solid grey;
+  font-size: 0.78em;
+}
+
+.Trans table td {
+  width: calc(100% / 4);
 }
 
 .EmptyStore {

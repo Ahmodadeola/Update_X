@@ -40,7 +40,7 @@ class Dashboard extends Component {
     return (
       <div className={classes.Dashboard}>
         <div className={classes.Section}>
-          <h1>Items category</h1>
+          <h1>Category</h1>
           {category && category.length > 0 ? (
             <div className={classes.Items}>
               {category.map((cat) => (
@@ -71,7 +71,7 @@ class Dashboard extends Component {
           ) : null}
         </div>
         <div className={classes.Section}>
-          <h1>All Items</h1>
+          <h1>Items</h1>
           {items && items.length > 0 ? (
             <div className={classes.Items}>
               {this.props.loading ? (
@@ -103,7 +103,7 @@ class Dashboard extends Component {
         </div>
         <div className={classes.Section}>
           <div className={classes.Trans}>
-            <table cellSpacing="2" cellPadding="10px" border="2" width="90%">
+            <table cellPadding="4px" width="90%">
               <thead>
                 <tr>
                   <td colSpan="4">
@@ -113,23 +113,19 @@ class Dashboard extends Component {
               </thead>
               <tbody>
                 <tr>
-                  <td>S/N</td>
                   <td>Type</td>
                   <td>Item</td>
                   <td>Quantity</td>
+                  <td>Time</td>
                 </tr>
-                <tr>
-                  <td>S/N</td>
-                  <td>Type</td>
-                  <td>Item</td>
-                  <td>Quantity</td>
-                </tr>
-                <tr>
-                  <td>S/N</td>
-                  <td>Type</td>
-                  <td>Item</td>
-                  <td>Quantity</td>
-                </tr>
+                {this.props.history.map((trans) => (
+                  <tr>
+                    <td>{trans.item}</td>
+                    <td>{trans.type}</td>
+                    <td>{trans.quantity.unit}</td>
+                    <td>{Date(trans.time).toLocaleString().substr(0, 13)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -146,6 +142,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
+    history: state.items.history,
     category: state.categories.category,
     loading: state.globalState.loading,
   };

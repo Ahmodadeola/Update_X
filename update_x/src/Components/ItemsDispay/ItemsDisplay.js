@@ -20,14 +20,14 @@ class ItemsDisplay extends Component {
   };
 
   moreItemHandler = () => {
-    let currCount = this.state.itemStartIndex + 15;
+    let currCount = this.state.itemStartIndex + 16;
     if (currCount <= this.getItems().length) {
       this.setState({ itemStartIndex: currCount });
     }
   };
 
   prevItemsHandler = () => {
-    let currCount = this.state.itemStartIndex - 15;
+    let currCount = this.state.itemStartIndex - 16;
     console.log("Handling the prev button", currCount);
     if (currCount <= 0) {
       this.setState({ itemStartIndex: currCount });
@@ -59,8 +59,8 @@ class ItemsDisplay extends Component {
       );
     let remainItemsCount = allItems.length - this.state.itemStartIndex,
       nextItemsCount =
-        remainItemsCount > 15
-          ? this.state.itemStartIndex + 15
+        remainItemsCount > 16
+          ? this.state.itemStartIndex + 16
           : this.state.itemStartIndex + remainItemsCount;
     let items =
       this.props.type === "products"
@@ -105,7 +105,7 @@ class ItemsDisplay extends Component {
           })}
         </div>
         <div className={classes.Buttons}>
-          {remainItemsCount > 15 ? (
+          {remainItemsCount > 16 ? (
             <Button
               clicked={() => this.moreItemHandler()}
               value={"Next Items"}

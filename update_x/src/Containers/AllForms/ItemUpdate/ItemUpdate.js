@@ -38,7 +38,6 @@ class ItemUpdate extends Component {
         initQuantity: newQuantity,
       },
     });
-    // this.props.history.replace("/");
   };
 
   render() {

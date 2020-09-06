@@ -1,5 +1,7 @@
 import * as actions from "./actionTypes";
-const home = "https://update-x.herokuapp.com";
+const home = process.env.PORT
+  ? "https://update-x.herokuapp.com"
+  : "http://localhost:8080";
 
 const addItemSync = (item) => {
   return {
@@ -108,28 +110,44 @@ const getItemsFailed = () => {
   };
 };
 
+const getItemsHistory = () => {
+  return {
+    type: actions.GET_HISTORY,
+  };
+};
+
+const getItemsHistorySuccess = (history) => {
+  return {
+    type: actions.GET_HISTORY_SUCCESS,
+    history,
+  };
+};
+
+const getItemsHistoryFailed = () => {
+  return {
+    type: actions.GET_HISTORY_FAILED,
+  };
+};
+
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(getItems());
     fetch(`${home}/api/getitems`)
       .then((res) => res.json())
-      .then((data) => {
-        dispatch(getItemsSuccess(data.data));
-      })
-      .catch((err) => {
-        console.log("Items fetch failed here");
-        console.log(err);
-        dispatch(getItemsFailed());
-      });
+      .then((data) => dispatch(getItemsSuccess(data.data)))
+      .catch((err) => dispatch(getItemsFailed()));
+
     dispatch(getCategories());
     fetch(`${home}/api/getcategories`)
       .then((res) => res.json())
-      .then((data) => {
-        dispatch(getCategoriesSuccess(data.data));
-      })
-      .catch((err) => {
-        dispatch(getCategoriesFailed());
-      });
+      .then((data) => dispatch(getCategoriesSuccess(data.data)))
+      .catch((err) => dispatch(getCategoriesFailed()));
+
+    dispatch(getItemsHistory());
+    fetch(`${home}/api/getitemshistory`)
+      .then((res) => res.json())
+      .then((data) => dispatch(getItemsHistorySuccess(data)))
+      .catch((err) => dispatch(getItemsHistoryFailed()));
   };
 };
 

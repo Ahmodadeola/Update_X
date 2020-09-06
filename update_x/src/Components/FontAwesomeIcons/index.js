@@ -3,10 +3,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 // import your icons
 import {
-  faUser,
   faEnvelope,
-  faArrowRight,
-  faTimes,
   faListAlt,
   faShoppingCart,
   faHome,
@@ -15,12 +12,15 @@ import {
   faArrowLeft,
   faPlus,
   faMinus,
+  faPeopleArrows,
+  faTimes,
+  faChartBar,
+  faStore,
+  faTruckPickup,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
-  faUser,
   faEnvelope,
-  faArrowRight,
   faListAlt,
   faShoppingCart,
   faHome,
@@ -29,6 +29,10 @@ library.add(
   faArrowLeft,
   faTimes,
   faPlus,
-  faMinus
+  faMinus,
+  faChartBar,
+  faPeopleArrows,
+  faStore,
+  faTruckPickup
   // more icons go here
 );

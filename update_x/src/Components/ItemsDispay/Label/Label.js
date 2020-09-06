@@ -7,7 +7,7 @@ export default (props) => {
   return (
     <div className={classes.Label}>
       <span>
-        {details.length < 48 ? details : details.slice(0, 45) + "..."}
+        {details.length < 43 ? details : details.slice(0, 40) + "..."}
       </span>
       <br />
       <span className={classes.Quantity}>{quantity}</span>

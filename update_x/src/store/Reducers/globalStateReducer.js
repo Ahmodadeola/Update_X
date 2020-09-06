@@ -6,18 +6,18 @@ const init_state = {
   links: [
     { name: "Dashboard", path: "/", icon: "home" },
     { name: "Category", path: "/category", icon: "list-alt" },
-    { name: "All Items", path: "/all-items", icon: "shopping-cart" },
+    { name: "Items", path: "/all-items", icon: "store" },
+    { name: "New Category", path: "/add-category", icon: "plus" },
+    { name: "New Item", path: "/add-item", icon: "plus" },
     { name: "Transactions History", path: "/history", icon: "history" },
-    { name: "Vendors", path: "/vendors", icon: "shopping-cart" },
-    { name: "Add/Remove Item(s)", path: "/add-item", icon: "shopping-cart" },
-    { name: "Add New Category", path: "/add-category", icon: "shopping-cart" },
-    { name: "Return Item(s)", path: "/return-item", icon: "shopping-cart" },
+    { name: "Vendors", path: "/vendors", icon: "people-arrows" },
+    { name: "Return Item(s)", path: "/return-item", icon: "times" },
     {
-      name: "Expected Supply",
-      path: "/expected-supply",
-      icon: "shopping-cart",
+      name: "Incoming",
+      path: "/incoming",
+      icon: "truck-pickup",
     },
-    { name: "Items Stats", path: "/stat", icon: "shopping-cart" },
+    { name: "Items Stats", path: "/stat", icon: "chart-bar" },
   ],
 };
 
@@ -50,6 +50,18 @@ const globalStateReducer = (state = init_state, action) => {
       return {
         ...state,
         navLinks: links,
+      };
+
+    case actions.SET_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
+    case actions.REMOVE_ERROR:
+      return {
+        ...state,
+        error: false,
       };
 
     default:

@@ -2,6 +2,10 @@ export const GET_ITEMS = "GET_ITEMS";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
 export const GET_ITEMS_FAILED = "GET_ITEMS_FAILURE";
 
+export const GET_HISTORY = "GET_HISTORY";
+export const GET_HISTORY_SUCCESS = "GET_HISTORY_SUCCESS";
+export const GET_HISTORY_FAILED = "GET_HISTORY_FAILED";
+
 export const ADD_ITEM = "ADD_ITEM";
 export const ADD_ITEM_SUCCESS = "ADD_ITEM_SUCCESS";
 export const ADD_ITEM_FAILED = "ADD_ITEM_FAILED";
@@ -30,6 +34,8 @@ export const REMOVE_SEARCH_MODE = "REMOVE_SEARCH_MODE";
 
 export const ADD_LINK = "ADD_LINK";
 export const REMOVE_LINK = "REMOVE_LINK";
+export const SET_ERROR = "REMOVE_ERROR";
+export const REMOVE_ERROR = "REMOVE_ERROR";
 
 export const UPDATE_IMAGE = "UPDATE_IMAGE";
 export const UPDATE_IMAGE_SUCCESS = "UPDATE_IMAGE_SUCCESS";

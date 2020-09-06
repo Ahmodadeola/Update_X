@@ -3,6 +3,7 @@ import CategoryItems from "../../Containers/CategoryItems/CategoryItems";
 
 const init_state = {
   items: [],
+  history: [],
   category: [],
   categoryItems: [],
   loading: false,
@@ -38,6 +39,28 @@ const itemsReducer = (state = init_state, action) => {
       };
 
     case actions.GET_ITEMS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
+    case actions.GET_HISTORY:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+
+    case actions.GET_HISTORY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        history: action.history,
+      };
+
+    case actions.GET_HISTORY_FAILED:
       return {
         ...state,
         loading: false,
@@ -101,7 +124,7 @@ const itemsReducer = (state = init_state, action) => {
     case actions.UPDATE_ITEM_FAILED:
       return {
         ...state,
-        lodaing: false,
+        loading: false,
         error: true,
       };
 

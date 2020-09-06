@@ -39,8 +39,11 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.globalState.loading,
-    err: state.globalState.error,
+    loading:
+      state.globalState.loading ||
+      state.items.loading ||
+      state.categories.loading,
+    err: state.globalState.error || state.items.error || state.categories.error,
     showSearch: state.globalState.searchMode,
   };
 };
