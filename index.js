@@ -41,8 +41,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "update_x/build/index.html"));
 });
 
-let onlineDB =
-  "mongodb+srv://ahmodadeola:salauAde123@realmcluster.viqjz.mongodb.net/itemStore?retryWrites=true&w=majority";
 let localDB = "mongodb://localhost:27017/itemStore";
 
 mongoose

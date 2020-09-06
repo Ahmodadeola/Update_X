@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import classes from "./Dashboard.module.css";
+
+import historyRow from "../../Containers/ItemsHistory/historyRow/historyRow";
 import Button from "../UI/Button/Button";
 import Product from "../../Components/ItemsDispay/Product/Product";
 import Spinner from "../UI/Spinner/Spinner";
-import { Link } from "react-router-dom";
+import HistoryRow from "../../Containers/ItemsHistory/historyRow/historyRow";
 
 class Dashboard extends Component {
   render() {
-    console.log(this.props.history);
     let category = this.props.category && this.props.category.slice(0, 6);
     let items = this.props.items && this.props.items.slice(0, 6);
 
@@ -101,34 +104,24 @@ class Dashboard extends Component {
             />
           )}
         </div>
+
         <div className={classes.Section}>
+          <h1>Transaction history</h1>
           <div className={classes.Trans}>
-            <table cellPadding="4px" width="90%">
-              <thead>
-                <tr>
-                  <td colSpan="4">
-                    <h1>Recent Transactions</h1>
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Type</td>
-                  <td>Item</td>
-                  <td>Quantity</td>
-                  <td>Time</td>
-                </tr>
-                {this.props.history.map((trans) => (
-                  <tr>
-                    <td>{trans.item}</td>
-                    <td>{trans.type}</td>
-                    <td>{trans.quantity.unit}</td>
-                    <td>{Date(trans.time).toLocaleString().substr(0, 13)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {this.props.history
+              .reverse()
+              .slice(0, 5)
+              .map((trans, idx) => (
+                <HistoryRow
+                  type={trans.type}
+                  time={new Date(trans.time)}
+                  item={trans.item}
+                  key={idx}
+                  quantity={trans.quantity}
+                />
+              ))}
           </div>
+          <Button value="view all" path="/history" />
         </div>
 
         <div className={classes.Section}>

@@ -15,6 +15,7 @@ import ProductPage from "./Containers/ProductPage/ProductPage";
 import { fetchData, updateItem } from "./store/actions/index";
 import Spinner from "./Containers/UI/Spinner/Spinner";
 import Button from "./Containers/UI/Button/Button";
+import ItemsHistory from "./Containers/ItemsHistory/ItemsHistory";
 
 class App extends Component {
   componentWillMount() {
@@ -50,6 +51,7 @@ class App extends Component {
               <Route path="/add-item" component={NewItem} />
               <Route path="/add-category" component={CategoryForm} />
               <Route path="/vendors" component={Vendor} />
+              <Route path="/history" component={ItemsHistory} />
               <Route path="/" component={Dashboard} />
             </Switch>
           )}

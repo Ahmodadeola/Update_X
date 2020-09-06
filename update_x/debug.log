@@ -310,3 +310,4 @@
 [0718/193501.861:ERROR:http_transport_win.cc(276)] WinHttpSendRequest: The operation completed successfully. (0x0)
 [0726/032213.962:ERROR:file_io.cc(134)] WriteFile: The pipe is being closed. (0xE8)
 [0818/113753.184:ERROR:crashpad.cc(153)] Failed to get activation factory for IPlatformDiagnosticsAndUsageDataSettingsStatics
+[0906/083852.454:ERROR:crashpad.cc(149)] Failed to get activation factory for IPlatformDiagnosticsAndUsageDataSettingsStatics

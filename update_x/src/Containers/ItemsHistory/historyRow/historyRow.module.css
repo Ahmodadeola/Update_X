@@ -1,0 +1,54 @@
+.HistoryRow {
+  padding: 5px;
+  margin: 15px auto;
+  border: 1px solid grey;
+  width: 97%;
+  box-shadow: 1px -1px 2px grey, -1px 1px 2px grey;
+  z-index: 8;
+}
+
+span.Time {
+  color: grey;
+  width: 100%;
+  padding: 5px;
+  font-size: small;
+}
+
+.Details {
+  display: flex;
+  justify-content: space-between;
+}
+
+span.Item {
+  font-size: 0.92em;
+  font-weight: bold;
+  color: #f06;
+}
+
+span.Type {
+  padding-top: 8px;
+  display: block;
+  font-size: small;
+}
+
+.Quantity {
+}
+
+.Red {
+  color: red;
+}
+
+.Green {
+  color: green;
+}
+
+@media (min-width: 1000px) {
+  div.LeftDetails {
+    width: 55%;
+  }
+
+  span.Type {
+    display: inline;
+    float: right;
+  }
+}

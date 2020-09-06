@@ -1,0 +1,10 @@
+.ItemsHistory h2 {
+  text-align: center;
+  padding: 5px;
+  color: #f06;
+}
+
+.Transactions {
+  width: 97%;
+  margin: auto;
+}
