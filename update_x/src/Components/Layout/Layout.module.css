@@ -3,11 +3,16 @@
   width: 100%;
   margin-top: 80px;
   background-color: rgb(235, 226, 226);
-  min-height: 100vh;
 }
 
 .ProductSection {
   width: 100%;
+}
+
+.Spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 .Main .Error {

@@ -28,7 +28,9 @@ const Layout = (props) => {
                 {props.children}
               </section>
             ) : (
-              <Spinner />
+              <div className={classes.Spinner}>
+                <Spinner />
+              </div>
             )}
           </main>
         </div>

@@ -87,7 +87,7 @@ class ItemUpdate extends Component {
             },
             validation: {
               required: false,
-              minValue: 1,
+              minValue: 0,
             },
             valid: true,
             isTouched: false,
@@ -103,7 +103,7 @@ class ItemUpdate extends Component {
             },
             validation: {
               required: false,
-              minValue: 1,
+              minValue: 0,
             },
             valid: true,
             isTouched: false,
@@ -119,7 +119,7 @@ class ItemUpdate extends Component {
             },
             validation: {
               required: true,
-              minValue: 1,
+              minValue: 0,
             },
             valid: true,
             isTouched: false,
