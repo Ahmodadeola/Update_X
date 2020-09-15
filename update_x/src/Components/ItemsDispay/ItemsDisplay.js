@@ -98,6 +98,7 @@ class ItemsDisplay extends Component {
                 key={product.name}
                 link={product.img}
                 name={product.name}
+                quantity={this.props.catItems[product.name].length}
               />
             );
           })}
@@ -125,6 +126,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.items.items,
     cat: state.categories.category,
+    catItems: state.items.categoryItems,
   };
 };
 

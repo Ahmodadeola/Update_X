@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-const home = "https://update-x.herokuapp.com";
+const home = "http://localhost:8080";
 
 const addItemSync = (item) => {
   return {
@@ -28,7 +28,10 @@ export const addItem = (data) => {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => dispatch(addItemSuccess(data)))
+      .then((data) => {
+        console.log(data);
+        dispatch(addItemSuccess(data));
+      })
       .catch((err) => {
         console.log(err);
         dispatch(addItemFailed());

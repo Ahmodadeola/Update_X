@@ -13,11 +13,12 @@ const Product = (props) => {
         style={props.style2}
       >
         <div className={classes.Image}>
-          <img
-            alt={props.name}
-            src={props.link || `${home}/images/image.jpg`}
+          <img alt={props.name} src={props.link || "/images/image.jpg"} />
+          <Label
+            name={props.name}
+            quantity={props.quantity + " item(s)"}
+            brand={props.brand}
           />
-          <Label name={props.name} brand={props.brand} price={props.price} />
         </div>
       </div>
     </Link>
@@ -37,7 +38,6 @@ const Product = (props) => {
             quantity={props.quantity}
             name={props.name}
             brand={props.brand}
-            price={props.price}
           />
         </div>
       </div>

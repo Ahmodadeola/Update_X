@@ -7,15 +7,11 @@ import HistoryRow from "./historyRow/historyRow";
 import classes from "./ItemsHistory.module.css";
 
 const ItemHistory = (props) => {
-  useEffect(() => {
-    props.addPath("/history");
-  });
-
   return (
     <div className={classes.ItemsHistory}>
       <h2>Transaction History</h2>
       <section className={classes.Transactions}>
-        {props.transHistory.reverse().map((trans, idx) => (
+        {props.transHistory.map((trans, idx) => (
           <HistoryRow
             key={idx}
             quantity={trans.quantity}
@@ -31,7 +27,7 @@ const ItemHistory = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    transHistory: state.items.history,
+    transHistory: [...state.items.history].reverse(),
   };
 };
 

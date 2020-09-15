@@ -65,7 +65,7 @@ class ItemUpdate extends Component {
       initQuantity: {
         hasNestedInputs: true,
         inputId: "initQuantity",
-        name: "How much quantity do you currently have",
+        name: "Qunatity",
         isValid: function () {
           let inputs = Object.values(this.inputs);
           return inputs.some((input) => input.elementConfig.value !== "");

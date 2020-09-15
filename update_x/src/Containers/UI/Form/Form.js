@@ -19,13 +19,12 @@ export default class extends Component {
 
   checkValidity = (inputValue, rules) => {
     let isValid = true;
-
     if (rules.required) {
       isValid = inputValue.trim().length > 0 && isValid;
     }
 
-    if (rules.minValue) {
-      isValid = inputValue > 0 && isValid;
+    if (rules.minValue !== undefined) {
+      isValid = inputValue >= rules.minValue && isValid;
     }
 
     if (rules.minLength) {
@@ -59,7 +58,6 @@ export default class extends Component {
         )
       )
         return;
-      // sharp(e.target.files[0]).toFile((err) => console.log(file));
       updatedFormElement.elementConfig.file.append("image", e.target.files[0]);
     } else {
       if (!parent) updatedFormInputs[inputId] = updatedFormElement;
@@ -75,7 +73,6 @@ export default class extends Component {
       this.setState({ formEntries: updatedFormInputs });
       return;
     }
-
     updatedFormElement.valid = this.checkValidity(
       updatedFormElement.elementConfig.value,
       updatedFormElement.validation

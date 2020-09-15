@@ -9,6 +9,7 @@ import Button from "../UI/Button/Button";
 import Product from "../../Components/ItemsDispay/Product/Product";
 import Spinner from "../UI/Spinner/Spinner";
 import HistoryRow from "../../Containers/ItemsHistory/historyRow/historyRow";
+import { addLink } from "../../store/actions";
 
 class Dashboard extends Component {
   render() {
@@ -51,6 +52,7 @@ class Dashboard extends Component {
                   type={"category"}
                   name={cat.name}
                   key={cat.name}
+                  quantity={this.props.catItems[cat.name].length}
                   link={"/images/image.jpg"}
                 />
               ))}
@@ -108,20 +110,21 @@ class Dashboard extends Component {
         <div className={classes.Section}>
           <h1>Transaction history</h1>
           <div className={classes.Trans}>
-            {this.props.history
-              .reverse()
-              .slice(0, 5)
-              .map((trans, idx) => (
-                <HistoryRow
-                  type={trans.type}
-                  time={new Date(trans.time)}
-                  item={trans.item}
-                  key={idx}
-                  quantity={trans.quantity}
-                />
-              ))}
+            {this.props.history.slice(0, 5).map((trans, idx) => (
+              <HistoryRow
+                type={trans.type}
+                time={new Date(trans.time)}
+                item={trans.item}
+                key={idx}
+                quantity={trans.quantity}
+              />
+            ))}
           </div>
-          <Button value="view all" path="/history" />
+          <Button
+            value="view all"
+            path="/history"
+            clicked={() => this.props.addPath("/history")}
+          />
         </div>
 
         <div className={classes.Section}>
@@ -135,9 +138,17 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
-    history: state.items.history,
+    catItems: state.items.categoryItems,
+    history: [...state.items.history].reverse(),
     category: state.categories.category,
     loading: state.globalState.loading,
   };
 };
-export default connect(mapStateToProps)(Dashboard);
+
+const mapDispatchToprops = (dispatch) => {
+  return {
+    addPath: (link) => dispatch(addLink(link)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToprops)(Dashboard);

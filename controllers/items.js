@@ -22,24 +22,23 @@ const transInfo = (q1, q2) => {
       diff.push(key);
       result[key] = q1[key] - q2[key];
       if (!type) type = q2[key] - q1[key] < 0 ? "Added" : "Removed";
+      //
     }
   });
 
   return { result, type };
 };
 
-const setTransaction = (item, quantity, initQuanity) => {
-  let { result, type } = transInfo(quantity, initQuanity);
-  let transaction = new Transaction({
+const setTransaction = (item, quantity, initQuantity) => {
+  let { result, type } = transInfo(quantity, initQuantity);
+  let trData = {
     item,
     quantity: result,
     type,
     time: Date.now(),
-  });
-  transaction
-    .save()
-    .then((trans) => console.log(trans))
-    .catch((err) => console.log(err));
+  };
+
+  return trData;
 };
 
 exports.addItemController = (req, res) => {
@@ -55,7 +54,18 @@ exports.addItemController = (req, res) => {
         });
         item
           .save()
-          .then((data) => res.json(data))
+          .then((itemData) => {
+            let transaction = new Transaction({
+              item: `${itemData.brand} ${itemData.name}`,
+              quantity: itemData.initQuantity,
+              type: "Added",
+              time: Date.now(),
+            });
+            transaction
+              .save()
+              .then((transData) => res.json({ itemData, transData }))
+              .catch((err) => res.send(err));
+          })
           .catch((err) => console.log(err));
       })
       .catch((err) => res.json(err));
@@ -63,7 +73,18 @@ exports.addItemController = (req, res) => {
     let item = new Item({ ...data, date: new Date() });
     item
       .save()
-      .then((data) => res.json(data))
+      .then((itemData) => {
+        let transaction = new Transaction({
+          item: `${itemData.brand} ${itemData.name}`,
+          quantity: itemData.initQuantity,
+          type: "Added",
+          time: Date.now(),
+        });
+        transaction
+          .save()
+          .then((transData) => res.json({ itemData, transData }))
+          .catch((err) => res.send(err));
+      })
       .catch((err) => console.log(err));
   }
 };
@@ -83,20 +104,30 @@ exports.getItemsHistoryController = (req, res) => {
 exports.updateItemController = (req, res) => {
   Item.findById(req.body.id)
     .then((item) => {
-      if (!isQuantitySame(req.body.props.initQuantity, item.initQuantity)) {
-        setTransaction(
-          item.brand + " " + item.name,
-          req.body.props.initQuantity,
-          item.initQuantity
-        );
-      }
-
+      let itemQuantity = { ...item.initQuantity };
       Object.keys(req.body.props).forEach((key) => {
         item[key] = req.body.props[key];
       });
-      item.save().then((item) => {
-        res.json(item);
-      });
+
+      if (!isQuantitySame(req.body.props.initQuantity, itemQuantity)) {
+        trData = setTransaction(
+          item.brand + " " + item.name,
+          req.body.props.initQuantity,
+          itemQuantity
+        );
+        item.save().then((item) => {
+          let transaction = new Transaction(trData);
+          transaction
+            .save()
+            .then(() => res.json({ item, trData }))
+            .catch((err) => res.send(err));
+        });
+      } else {
+        item
+          .save()
+          .then((item) => res.json({ item }))
+          .catch((err) => res.send(err));
+      }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.send(err));
 };

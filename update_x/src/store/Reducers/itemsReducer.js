@@ -74,12 +74,14 @@ const itemsReducer = (state = init_state, action) => {
       };
 
     case actions.ADD_ITEM_SUCCESS:
-      let newItems = state.items.concat(action.item);
+      console.log(action.data);
+      let newItems = state.items.concat(action.item.itemData);
       let newCategoryItems = filterCategory(state.category, newItems);
       return {
         ...state,
         loading: false,
-        items: [action.item, ...state.items],
+        items: [action.item.itemData, ...state.items],
+        history: [...state.history, action.item.transData],
         categoryItems: newCategoryItems,
       };
 
@@ -108,13 +110,17 @@ const itemsReducer = (state = init_state, action) => {
     case actions.UPDATE_ITEM_SUCCESS:
       let items = [...state.items];
       items.forEach((item, id) => {
-        if (action.item._id === item._id) {
-          items[id] = action.item;
+        if (action.item.item._id === item._id) {
+          items[id] = action.item.item;
         }
       });
+      console.log(action.item);
       return {
         ...state,
         items: items,
+        history: action.item.trData
+          ? [...state.history, action.item.trData]
+          : [...state.history],
         loading: false,
       };
 
